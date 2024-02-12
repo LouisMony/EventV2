@@ -1,0 +1,121 @@
+@import '../index.scss';
+
+.home{
+    height: calc(100vh - $navHeight);
+    padding: 15px 15px 0 15px;
+
+    &__head{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: $baseUnit;
+        margin-bottom: calc($baseUnit*1);
+
+        input{
+            padding: 0 12px;
+            height: 50px;
+            font-size: 14px;
+            border: none;
+            outline: none;
+            width: 100%;
+            border-radius: 5px;
+
+            &:focus{
+
+            }
+        }
+    }
+
+    &__filters{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: calc($baseUnit*2);
+        margin-bottom: calc($baseUnit*1);
+    }
+
+    &__events{
+        height: calc(100% - 122px);
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        gap: $baseUnit;
+
+        li{
+            width: 100%;
+
+            a{
+                width: 100%;
+
+                .eventBloc{
+                    display: flex;
+                    gap:calc($baseUnit/2);
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: calc($baseUnit/2);
+                    border-radius: 10px;
+                    height: 120px;
+                    background-color: white;
+                    box-shadow: 0px 9px 15px -2px rgba(0,0,0,0.08);
+                    
+                    &__img{
+                        border-radius: 10px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
+                        aspect-ratio: 1/1;
+            
+                        img{
+                            border-radius: 10px;
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+
+                    &__main{
+                        display: flex;
+                        flex-direction: column;
+                        font-size: 14px;
+                        width: 100%;
+                        height: 100%;
+                        &__title{
+                            font-weight: 600;
+                            font-size: 16px;
+                        }
+                    }
+
+                    &__end{
+                        width: 20%;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: end;
+                        height: 100%;
+                        justify-content: space-between;
+                        p{
+                            display: flex;
+                            flex-direction: column;
+                            text-align: end;
+                            color: $mainColor;
+                            font-size: 12px;
+
+                            .count{
+                                font-size: 18px;
+                                font-weight: 500;
+                            }
+                            
+                        }
+
+                        img{
+                            height:25px;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    
+}
