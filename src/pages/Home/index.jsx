@@ -21,48 +21,21 @@ function Home(){
 
         <ul className="home__events">
           <li>
-            <Link>
+            <Link to={'/event/3'}>
                 <EventBloc />
             </Link>
           </li>
           <li>
-            <Link>
-              <EventBloc />
-            </Link>
-          </li>
-          <li>
-            <Link>
-              <EventBloc />
-            </Link>
-          </li>
-          <li>
-            <Link>
+            <Link to={'/event/3'}>
                 <EventBloc />
             </Link>
-          </li>
-          <li>
-            <Link>
-              <EventBloc />
-            </Link>
-          </li>
-          <li>
-            <Link>
-              <EventBloc />
-            </Link>
-          </li>
-          <li>
-            <Link>
+          </li><li>
+            <Link to={'/event/3'}>
                 <EventBloc />
             </Link>
-          </li>
-          <li>
-            <Link>
-              <EventBloc />
-            </Link>
-          </li>
-          <li>
-            <Link>
-              <EventBloc />
+          </li><li>
+            <Link to={'/event/3'}>
+                <EventBloc />
             </Link>
           </li>
         </ul>

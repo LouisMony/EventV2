@@ -49,7 +49,7 @@ const SignIn = () => {
           />
         </label>
 
-        <button type="submit">Me connecter</button>
+        <button className='mainButton' type="submit">Me connecter</button>
       </form>
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       <Link to={'/register/creer-un-compte'}>Je n'ai pas encore de compte.</Link>

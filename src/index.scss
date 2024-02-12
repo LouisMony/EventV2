@@ -49,3 +49,19 @@ ul{
     padding: 0;
   }
 }
+
+.mainButton{
+  background-color: $mainColor;
+  border: none;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  padding: calc($baseUnit/2); 
+  border-radius: 5px;  
+  width: 100%;
+  transition: all 300ms linear;
+
+  &:hover{
+      background-color: $mainColorHover;
+  }
+}

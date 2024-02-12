@@ -13,13 +13,13 @@ import Navbar from './components/Navbar/Navbar';
 //STYLE 
 import './index.scss';
 
-function App(){
-
+function App() {
   const location = useLocation();
+  const shouldDisplayNavbar = location.pathname === '/mon-compte' || location.pathname === '/settings' || location.pathname === '/';
 
   return (
     <>
-      <Navbar/>
+      {shouldDisplayNavbar && <Navbar/>}
       <Routes location={location} key={location.pathname}>
         <Route index element={<Home/>} />
         <Route path='/mon-compte' element={<Account/>} />
@@ -31,6 +31,7 @@ function App(){
     </>
   );
 }
+
 
 export default App;
 

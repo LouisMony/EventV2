@@ -77,7 +77,7 @@ const SignUp = () => {
             required
           />
         </label>
-        <button type="submit">S'inscrire</button>
+        <button className='mainButton' type="submit">S'inscrire</button>
       </form>
       {errorMessage && <p className='formError_p'>{errorMessage}</p>}
       
