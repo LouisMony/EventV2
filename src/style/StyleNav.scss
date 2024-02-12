@@ -10,13 +10,15 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 $baseUnit;
-    border-top: solid 1px $fontColor;
 
     &__link{
         display: flex;
+        border-radius: 10px;
         flex-direction: column;
         align-items: center;
-        width: 30%;
+        width: 25%;
+        padding: 3px 0;
+        transition: all 200ms linear;
 
         span{
             font-size: 12px;
@@ -24,6 +26,7 @@
     }
 
     .active-link{
+        background-color: #ffdada;
         span{
             color: $mainColor;
         }
