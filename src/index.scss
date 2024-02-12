@@ -1,22 +1,41 @@
 //FONT
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap');
 
 //VARIABLE
+$mainColor : #FF3A3A;
+$mainColorHover : #fb2626;
+$mainBg :#E9EFF2;
+$secondBg : #F9F9F9;
+$fontColor : #222222;
+$hr : rgba(110, 113, 122, 0.38);
+$focus : rgb(196, 196, 196);
+
+$navHeight:90px;
+$baseUnit: 24px;
+
 
 //GENERAL
 *{
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 body{
   width: 100%;
   min-height: 100vh;
   padding: 15px;
+  background-color: $mainBg;
+  color: $fontColor;
 }
 
 p,h1,h2,h3,h3{
   margin:0;
   font-weight: 400;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
 }
