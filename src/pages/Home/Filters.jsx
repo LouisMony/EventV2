@@ -1,16 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react';
 
 const Filters = () => {
-  const handleClick = (e) =>{
-    console.log(e.target);
-  }
+  const [activeFilter, setActiveFilter] = useState('Date');
+
+  const handleClick = (e) => {
+    const clickedFilter = e.target.innerText;
+    setActiveFilter(clickedFilter);
+  };
+
   return (
     <div className='home__filters'>
-      <span onClick={handleClick}>Date</span>
-      <span onClick={handleClick}>Thème</span>
-      <span onClick={handleClick}>Lieu</span>
+      <span
+        className={activeFilter === 'Date' ? 'filterActive' : ''}
+        onClick={handleClick}
+      >
+        Date
+      </span>
+      <span
+        className={activeFilter === 'Thème' ? 'filterActive' : ''}
+        onClick={handleClick}
+      >
+        Thème
+      </span>
+      <span
+        className={activeFilter === 'Lieu' ? 'filterActive' : ''}
+        onClick={handleClick}
+      >
+        Lieu
+      </span>
     </div>
-  )
-}
+  );
+};
 
-export default Filters
+export default Filters;
