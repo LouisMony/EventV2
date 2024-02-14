@@ -1,0 +1,51 @@
+@import '../index.scss';
+
+.settings{
+    height: calc(100vh - $navHeight);
+    padding: 15px 15px 0 15px;
+
+    h2{
+        font-size: 18px;
+        font-weight: 600;
+        margin: 12px 0;
+    }
+
+    p{
+        background-color: white;
+        border-radius: 5px;
+        padding: 15px;
+        font-size: 12px;
+        margin-bottom: 12px;
+    }
+
+    &__list{
+        display: flex;
+        flex-direction: column;
+        gap: calc($baseUnit/2);
+        margin-bottom: $baseUnit;
+
+        &__item{
+            background-color: white;
+            height: calc($baseUnit*2);
+            border-radius: 5px;
+            padding: 0 12px;
+            a{
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                span{
+                    font-size: 14px;
+                }
+
+                svg{
+                    opacity: .5;
+                }
+            }
+            
+            
+            
+        }
+    }
+}
