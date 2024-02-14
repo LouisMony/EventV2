@@ -11,7 +11,7 @@ const Settings = () => {
 
       <ul className='settings__list'>
           <SettingItem link='/mon-compte' label='Modifier mes informations' />
-          <SettingItem link='/utilisation des données' label='Utilisation des données' />
+          <SettingItem link='/utilisation-des-donnees' label='Utilisation des données' />
           <SettingItem link='/mon-compte' label='Me déconnecter' />
       </ul>
 

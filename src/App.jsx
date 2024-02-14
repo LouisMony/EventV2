@@ -9,13 +9,14 @@ import SignIn from './pages/Register/SignIn';
 import Settings from './pages/Settings';
 import EventDetail from './pages/EventDetail';
 import Navbar from './components/Navbar/Navbar';
+import Rgpd from './pages/Settings/Rgpd';
 
 //STYLE 
 import './index.scss';
 
 function App() {
   const location = useLocation();
-  const shouldDisplayNavbar = location.pathname === '/mon-compte' || location.pathname === '/settings' || location.pathname === '/evenements';
+  const shouldDisplayNavbar = location.pathname === '/utilisation-des-donnees' || location.pathname === '/mon-compte' || location.pathname === '/settings' || location.pathname === '/evenements';
 
   return (
     <>
@@ -27,6 +28,7 @@ function App() {
         <Route path='/register/me-connecter' element={<SignIn/>} />
         <Route path='/event/:id' element={<EventDetail/>} />
         <Route path='/settings' element={<Settings/>} />
+        <Route path='/utilisation-des-donnees' element={<Rgpd/>} />
       </Routes>
     </>
   );
