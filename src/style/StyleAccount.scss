@@ -1,0 +1,31 @@
+@import '../index.scss';
+
+.account{
+    height: calc(100vh - $navHeight);
+    padding: 15px 15px 0 15px;
+    h2{
+        font-size: 18px;
+        font-weight: 600;
+        margin: 12px 0;
+    }
+
+    p{
+        font-size: 12px;
+        margin-bottom: 12px;
+    }
+    &__events{
+        height: calc(100% - $navHeight - 50px);
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        gap: $baseUnit;
+
+        li{
+            width: 100%;
+
+            a{
+                width: 100%;
+            }
+        }
+    }
+}

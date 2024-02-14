@@ -15,13 +15,13 @@ import './index.scss';
 
 function App() {
   const location = useLocation();
-  const shouldDisplayNavbar = location.pathname === '/mon-compte' || location.pathname === '/settings' || location.pathname === '/';
+  const shouldDisplayNavbar = location.pathname === '/mon-compte' || location.pathname === '/settings' || location.pathname === '/evenements';
 
   return (
     <>
       {shouldDisplayNavbar && <Navbar/>}
       <Routes location={location} key={location.pathname}>
-        <Route index element={<Home/>} />
+        <Route path='/evenements' element={<Home/>} />
         <Route path='/mon-compte' element={<Account/>} />
         <Route path='/register/creer-un-compte' element={<SignUp/>} />
         <Route path='/register/me-connecter' element={<SignIn/>} />
