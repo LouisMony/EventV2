@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../style/StyleRegister.scss';
+import { supabase } from '../../supabase/client';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,8 @@ const SignUp = () => {
 
   const [errorMessage, setErrorMessage] = useState('');
 
+  const register = (username, email, password) => supabase.auth.signUp({ username, email, password });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -20,12 +23,26 @@ const SignUp = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage("Les mots de passe ne correspondent pas.");
     } else {
       console.log('FormData:', formData);
+      
+      try {
+        setErrorMessage("");
+        const { data, error } = await register(
+          formData.username,
+          formData.email,
+          formData.password
+        );
+        if (!error && data) {
+          console.log('complete', data);
+        }
+      } catch (error) {
+        setErrorMessage("Error in Creating Account");
+      }
       setErrorMessage('');
     }
   };

@@ -20,16 +20,16 @@ function App() {
 
   return (
     <>
-      {shouldDisplayNavbar && <Navbar/>}
-      <Routes location={location} key={location.pathname}>
-        <Route path='/evenements' element={<Home/>} />
-        <Route path='/mon-compte' element={<Account/>} />
-        <Route path='/register/creer-un-compte' element={<SignUp/>} />
-        <Route path='/register/me-connecter' element={<SignIn/>} />
-        <Route path='/event/:id' element={<EventDetail/>} />
-        <Route path='/settings' element={<Settings/>} />
-        <Route path='/utilisation-des-donnees' element={<Rgpd/>} />
-      </Routes>
+        {shouldDisplayNavbar && <Navbar/>}
+        <Routes location={location} key={location.pathname}>
+          <Route path='/evenements' element={<Home/>} />
+          <Route path='/mon-compte' element={<Account/>} />
+          <Route path='/register/creer-un-compte' element={<SignUp/>} />
+          <Route path='/register/me-connecter' element={<SignIn/>} />
+          <Route path='/event/:id' element={<EventDetail/>} />
+          <Route path='/settings' element={<Settings/>} />
+          <Route path='/utilisation-des-donnees' element={<Rgpd/>} />
+        </Routes>
     </>
   );
 }
