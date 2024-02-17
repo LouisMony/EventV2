@@ -1,18 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SettingItem from './SettingItem';
+import ModalSignOut from './ModalSignOut';
+import { useAuth } from '../../context/AuthProvider';
 
 //STYLE
 import '../../style/StyleSettings.scss';
 
 const Settings = () => {
+  const { signOut } = useAuth();
+
+  const [showModal, setShowModal] = useState(false)
+
+  const handleSignOut = async () =>{
+    try {
+      const { error } = await signOut();
+      console.log(error);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const toggleModal = () =>{
+    setShowModal(!showModal)
+  }
+
   return (
     <div className='settings'>
+      {showModal ? <ModalSignOut confirmFunction={handleSignOut} closeFunction={toggleModal}/> : null }
+      
       <h2>Paramètres</h2>
 
       <ul className='settings__list'>
           <SettingItem link='/mon-compte' label='Modifier mes informations' />
           <SettingItem link='/utilisation-des-donnees' label='Utilisation des données' />
-          <SettingItem link='/mon-compte' label='Me déconnecter' />
+          <div onClick={toggleModal}><SettingItem label='Me déconnecter' /></div>
       </ul>
 
       <h2>Nous contacter</h2>

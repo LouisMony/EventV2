@@ -1,14 +1,20 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabase/client";
 
 const AuthContext = createContext({});
 
 export const useAuth = () => useContext(AuthContext);
 
-const login = (email, password) =>
+const login = (email, password) => {
   supabase.auth.signInWithPassword({ email, password });
+} 
+
+const signOut = () => supabase.auth.signOut();
 
 const AuthProvider = ({ children }) => {
+  const navigate = useNavigate()
+
   const [user, setUser] = useState(null);
   const [auth, setAuth] = useState(false);
 
@@ -17,6 +23,12 @@ const AuthProvider = ({ children }) => {
       if (event === "SIGNED_IN") {
         setUser(session.user);
         setAuth(true);
+        navigate('/evenements')
+      }
+      else if (event === "SIGNED_OUT") {
+        setUser(null);
+        setAuth(false);
+        navigate('/register/me-connecter')
       }
     });
     return () => {
@@ -25,7 +37,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login }}>
+    <AuthContext.Provider value={{ user, login, signOut }}>
       {children}
     </AuthContext.Provider>
   );

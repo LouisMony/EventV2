@@ -115,7 +115,7 @@ ul{
 
 }
 
-.mainButton{
+.mainButton, .scndButton{
   background-color: $mainColor;
   border: none;
   color: white;
@@ -128,5 +128,37 @@ ul{
 
   &:hover{
       background-color: $mainColorHover;
+  }
+}
+
+.scndButton{
+  background-color: transparent;
+  color: #222222;
+}
+
+.modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.472);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  div{
+    background-color: $mainBg;
+    width: calc(100% - 30px);
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    border-radius: 10px;
+
+    p{
+      background-color: transparent;
+      text-align: center;
+      font-size: 14px;
+    }
   }
 }

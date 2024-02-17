@@ -24,12 +24,11 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const {data: { user, session },error} = await login(formData.email, formData.password);
-    }catch (error) {
+      const { data: { user, session } } = await login(formData.email, formData.password);
+    } catch (error) {
       console.log(error);
       setErrorMessage("Email or Password Incorrect");
     }
-    console.log('FormData:', formData);
   };
 
   return (
@@ -60,7 +59,7 @@ const SignIn = () => {
 
         <button className='mainButton' type="submit">Me connecter</button>
       </form>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {errorMessage && <p style={{ color: 'red', fontSize: "12px", marginTop: "12px" }}>{errorMessage}</p>}
       <Link to={'/register/creer-un-compte'}>Je n'ai pas encore de compte.</Link>
     </div>
   );
