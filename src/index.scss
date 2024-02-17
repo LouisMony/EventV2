@@ -171,3 +171,24 @@ ul{
     }
   }
 }
+
+.loader {
+  width: $baseUnit;
+  aspect-ratio: 1/1;
+  margin: $baseUnit auto;
+  border: 1px solid $fontColor;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+} 

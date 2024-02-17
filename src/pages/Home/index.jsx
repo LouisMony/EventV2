@@ -24,13 +24,15 @@ function Home(){
         <Filters />
 
         <ul className="home__events">
-            {eventsSelector && eventsSelector.map((item, index) => (
+            {eventsSelector ? eventsSelector.map((item, index) => (
                 <li key={index}>
                   <Link to={'/event/3'}>
                       <EventBloc name={item.name} imageLink={item.image_link} category={item.category} date={item.date} places={item.places} reservations={item.reservations} />
                   </Link>
                 </li>
-            ))}
+            )) : 
+            <span class="loader"></span>
+          }
           
         </ul>
       </div>
