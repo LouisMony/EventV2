@@ -10,7 +10,8 @@ const SignIn = () => {
     email: '',
     password: '',
   });
-
+  const [buttonContent, setButtonContent] = useState('Me connecter')
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
@@ -23,12 +24,20 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const { data: { user, session } } = await login(formData.email, formData.password);
-    } catch (error) {
-      console.log(error);
-      setErrorMessage("Email or Password Incorrect");
+    setIsLoading(true);
+    setButtonContent('Chargement ...');
+
+    const data = await login(formData.email, formData.password);
+    if(data){
+      console.log(data);
     }
+    // if(error){
+    //   console.log(error);
+    //   setErrorMessage("Email or Password Incorrect");
+    // }
+
+    setIsLoading(false);
+    setButtonContent('Me connecter');
   };
 
   return (
@@ -57,7 +66,7 @@ const SignIn = () => {
           />
         </label>
 
-        <button className='mainButton' type="submit">Me connecter</button>
+        <button disabled={isLoading} className='mainButton' type="submit">{buttonContent}</button>
       </form>
       {errorMessage && <p style={{ color: 'red', fontSize: "12px", marginTop: "12px" }}>{errorMessage}</p>}
       <Link to={'/register/creer-un-compte'}>Je n'ai pas encore de compte.</Link>

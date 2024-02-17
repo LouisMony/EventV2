@@ -2,18 +2,23 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../style/StyleRegister.scss';
 import { supabase } from '../../supabase/client';
+import ModalEmail from './ModalEmail';
 
 const SignUp = () => {
+
+  const [showModal, setShowModal] = useState(false)
+
   const [formData, setFormData] = useState({
-    username: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
 
+  const [buttonContent, setButtonContent] = useState('Suivant')
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const register = (username, email, password) => supabase.auth.signUp({ username, email, password });
+  const register = (email, password) => supabase.auth.signUp({email, password });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,6 +30,9 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setButtonContent('Chargement ...');
+
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage("Les mots de passe ne correspondent pas.");
     } else {
@@ -33,34 +41,31 @@ const SignUp = () => {
       try {
         setErrorMessage("");
         const { data, error } = await register(
-          formData.username,
           formData.email,
           formData.password
         );
         if (!error && data) {
           console.log('complete', data);
+          toggleModal()
         }
       } catch (error) {
-        setErrorMessage("Error in Creating Account");
+        setErrorMessage("Erreur lors de la création du compte.");
       }
       setErrorMessage('');
     }
+    setIsLoading(false);
+    setButtonContent('Suivant');
   };
+
+  const toggleModal = () =>{
+    setShowModal(!showModal)
+  }
 
   return (
     <div className='register'>
+      {showModal ? <ModalEmail closeFunction={toggleModal}/> : null }
       <h2>Créer un compte</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          <span>Nom d'utilisateur</span>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </label>
 
         <label>
           <span>Email</span>
@@ -94,9 +99,9 @@ const SignUp = () => {
             required
           />
         </label>
-        <button className='mainButton' type="submit">S'inscrire</button>
+        <button disabled={isLoading} className='mainButton' type="submit">{buttonContent}</button>
       </form>
-      {errorMessage && <p className='formError_p'>{errorMessage}</p>}
+      {errorMessage && <p style={{ color: 'red', fontSize: "12px", marginTop: "12px" }}>{errorMessage}</p>}
       
       <Link to={'/register/me-connecter'}>J'ai déja un compte.</Link>
     </div>
