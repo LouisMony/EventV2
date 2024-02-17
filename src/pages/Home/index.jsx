@@ -13,7 +13,6 @@ import '../../style/StyleHome.scss';
 function Home(){
     const eventsSelector = useSelector(state => state.events.data)
 
-
     return (
       <div className='home'>
         <div className="home__head">
@@ -26,12 +25,12 @@ function Home(){
         <ul className="home__events">
             {eventsSelector ? eventsSelector.map((item, index) => (
                 <li key={index}>
-                  <Link to={'/event/3'}>
+                  <Link to={'/event/'+item.id}>
                       <EventBloc name={item.name} imageLink={item.image_link} category={item.category} date={item.date} places={item.places} reservations={item.reservations} />
                   </Link>
                 </li>
             )) : 
-            <span class="loader"></span>
+            <span className="loader"></span>
           }
           
         </ul>
