@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../style/StyleRegister.scss';
+import { useAuth } from '../../context/AuthProvider';
 
 const SignIn = () => {
+  const { login } = useAuth();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -18,8 +21,14 @@ const SignIn = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const {data: { user, session },error} = await login(formData.email, formData.password);
+    }catch (error) {
+      console.log(error);
+      setErrorMessage("Email or Password Incorrect");
+    }
     console.log('FormData:', formData);
   };
 
