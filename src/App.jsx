@@ -15,10 +15,31 @@ import Rgpd from './pages/Settings/Rgpd';
 //STYLE 
 import './index.scss';
 
+//JS
+import { getAllEvents } from './js/helpers';
+import { useEffect } from 'react';
+import { UseDispatch, useDispatch } from 'react-redux';
+import { loadEvents } from './reducers/eventSlice';
+
 function App() {
   const { user } = useAuth();
   const location = useLocation();
+  const dispatch = useDispatch()
   const shouldDisplayNavbar = location.pathname === '/utilisation-des-donnees' || location.pathname === '/mon-compte' || location.pathname === '/settings' || location.pathname === '/evenements';
+
+  useEffect(() => {
+    if (user) {
+      async function fetchEvents() {
+        try {
+          const eventLoad = await getAllEvents();
+          dispatch(loadEvents(eventLoad));
+        } catch (error) {
+          console.error('Error loading content:', error);
+        }
+      }
+      fetchEvents();
+    }
+  }, [user, dispatch]);
 
   return (
     <>
