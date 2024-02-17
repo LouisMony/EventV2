@@ -1,20 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { formatterDate } from '../../js/helpers'
 
-const EventBloc = () => {
+const EventBloc = ({name, imageLink, category, date, places, reservations }) => {
+
+  const [formattedDate, setFormattedDate] = useState(null)
+  
+  useEffect(() =>{
+    const newDate = formatterDate(date)
+    setFormattedDate(newDate)
+  },[date])
   return (
     <div className='eventBloc'>
       <div className='eventBloc__img'>
-        <img src="https://images.unsplash.com/photo-1707638121258-eb6241971802?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Evenement" />
+        <img src={imageLink} alt="Evenement" />
       </div>
       <div className='eventBloc__main'>
-        <span className='eventBloc__main__title'>Draft - Edition #45</span>
-        <span>Magic the Gathering</span>
-        <span>6 février 2023</span>
+        <span className='eventBloc__main__title'>{name}</span>
+        <span>{category}</span>
+        {formattedDate ? <span>{formattedDate}</span> : null}
       </div>
       <div className='eventBloc__end'>
         <img src="./media/img/arrow_right.svg" alt="Voir le détail" />
         <p>
-            <span className='count'>6 / 15</span>
+            <span className='count'>{reservations} / {places}</span>
             <span>Participants</span>
         </p>
       </div>
