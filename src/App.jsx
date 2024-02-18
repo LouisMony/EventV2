@@ -18,7 +18,7 @@ import './index.scss';
 //JS
 import { getAllEvents } from './js/helpers';
 import { useEffect } from 'react';
-import { UseDispatch, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loadEvents } from './reducers/eventSlice';
 
 function App() {

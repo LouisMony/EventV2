@@ -6,6 +6,7 @@ import '../../style/StyleEventDetails.scss';
 
 //COMP
 import Info from './Info';
+import ModalConfirm from './ModalConfirm';
 import { Link, useNavigate } from 'react-router-dom';
 
 //IMG
@@ -16,6 +17,11 @@ const EventDetail = () => {
   const history = useNavigate();
 
   const [eventInfo, setEventInfo] = useState(null)
+  const [showModal, setShowModal] = useState(false)
+
+  const toggleModal = () =>{
+    setShowModal(!showModal)
+  }
 
   const eventsSelector = useSelector(state => state.events.data)
 
@@ -23,6 +29,11 @@ const EventDetail = () => {
     history.goBack();
   };
 
+  const handleSubscribe = async () =>{
+    console.log('start suscribe');
+  }
+
+  
   useEffect(() =>{
     if(eventsSelector){
       console.log(params.id);
@@ -34,11 +45,13 @@ const EventDetail = () => {
   },[eventsSelector])
 
 
+
   return (
     <>
     {
       eventInfo ?
         <div className='eventDetail'>
+          {showModal ? <ModalConfirm confirmFunction={handleSubscribe} closeFunction={toggleModal}/> : null }
           <div className='eventDetail__banner' style={{ backgroundImage: `url(${eventInfo.image_link})` }}>
             <Link to="#" onClick={goBack}>
               <img src={iconArrow} alt='Revenir à la page précendente'/>
@@ -58,7 +71,7 @@ const EventDetail = () => {
             <p className='alert'>
               Cet événement est actuellement complet, vous pouvez cependant vous inscrire dans la file d’attente : en cas de désistement d’un participant vous pourriez être recontacter par notre équipe pour pouvoir participer.
             </p>
-            <button className='mainButton'>M’inscrire dans la file d’attente</button>
+            <button onClick={toggleModal} className='mainButton'>M’inscrire dans la file d’attente</button>
           </div>
           
         </div>
