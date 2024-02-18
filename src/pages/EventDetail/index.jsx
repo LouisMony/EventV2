@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useAuth } from '../../context/AuthProvider';
+import { subscribeEvent } from '../../js/helpers';
 //STYLE
 import '../../style/StyleEventDetails.scss';
 
@@ -13,6 +15,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import iconArrow from '../../assets/arrow_left.svg'
 
 const EventDetail = () => {
+  const {user} = useAuth()
   const params = useParams()
   const history = useNavigate();
 
@@ -31,15 +34,18 @@ const EventDetail = () => {
 
   const handleSubscribe = async () =>{
     console.log('start suscribe');
+
+    const data = await subscribeEvent(user.id, user.email, eventInfo)
+    if(data.data[0].id){
+      toggleModal()
+    }
+    
   }
 
   
   useEffect(() =>{
     if(eventsSelector){
-      console.log(params.id);
-      console.log(eventsSelector);
       const selectedEvent = eventsSelector.find((event) => event.id === params.id);
-      console.log(selectedEvent);
       if (selectedEvent) {setEventInfo(selectedEvent)}
     }
   },[eventsSelector])
