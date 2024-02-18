@@ -20,6 +20,10 @@ const EventDetail = () => {
   const history = useNavigate();
 
   const [eventInfo, setEventInfo] = useState(null)
+  const [inscriptionInfo, setInscriptionInfo] = useState(null)
+  const [buttonText, setButtonText] = useState("M'inscrire à cet évènement")
+  const [buttonScndText, setButtonScndText] = useState("Me désinscrire de cet évènement")
+  const [buttonIsDisabled, setButtonIsDisabled] = useState(false)
   const [showModal, setShowModal] = useState(false)
 
   const toggleModal = () =>{
@@ -27,6 +31,7 @@ const EventDetail = () => {
   }
 
   const eventsSelector = useSelector(state => state.events.data)
+  const inscriptionSelector = useSelector(state => state.inscriptions.data)
 
   const goBack = () => {
     history.goBack();
@@ -39,7 +44,6 @@ const EventDetail = () => {
     if(data.data[0].id){
       toggleModal()
     }
-    
   }
 
   
@@ -48,7 +52,24 @@ const EventDetail = () => {
       const selectedEvent = eventsSelector.find((event) => event.id === params.id);
       if (selectedEvent) {setEventInfo(selectedEvent)}
     }
-  },[eventsSelector])
+    if(eventsSelector && inscriptionSelector){
+      const selectedInscription = inscriptionSelector.find((item) => {
+        return item.idEvent === params.id && item.idUser === user.id;
+      });
+      if (selectedInscription) {setInscriptionInfo(selectedInscription)}
+    }
+  },[eventsSelector, inscriptionSelector])
+
+  useEffect(() =>{
+
+    if(inscriptionInfo){
+      setButtonIsDisabled(true)
+      if(inscriptionInfo.isOnWaitingList){setButtonText("Inscrit dans la file d'attente")}
+      if(!inscriptionInfo.isOnWaitingList){setButtonText("Inscrit à cette évenement")}
+    }
+    else{setButtonIsDisabled(false)}
+    
+  },[inscriptionInfo])
 
 
 
@@ -74,10 +95,15 @@ const EventDetail = () => {
               <span>Détails :</span><br/>
               {eventInfo.description}
             </p>
-            <p className='alert'>
-              Cet événement est actuellement complet, vous pouvez cependant vous inscrire dans la file d’attente : en cas de désistement d’un participant vous pourriez être recontacter par notre équipe pour pouvoir participer.
-            </p>
-            <button onClick={toggleModal} className='mainButton'>M’inscrire dans la file d’attente</button>
+           
+            {eventInfo.places === eventInfo.reservations && !inscriptionInfo ? 
+              <p className='alert'>Cet événement est actuellement complet, vous pouvez cependant vous inscrire dans la file d’attente : en cas de désistement d’un participant vous pourriez être recontacter par notre équipe pour pouvoir participer.</p> 
+            : null}
+              
+            <div className='eventDetail__content__action'>
+              <button disabled={buttonIsDisabled} onClick={toggleModal} className='mainButton'>{buttonText}</button>
+              {inscriptionInfo ? <button onClick={toggleModal} className='thirdButton'>{buttonScndText}</button> : null}
+            </div>
           </div>
           
         </div>

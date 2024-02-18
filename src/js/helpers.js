@@ -15,6 +15,21 @@ export async function getAllEvents() {
     }
 }
 
+export async function getAllInscriptions(){
+    try {
+        let { data, errors } = await supabase.from('inscriptions').select('*')
+
+        if (errors) {
+            console.error(errors);
+        }
+        else {
+            return data
+        } 
+    } catch (error) {
+        console.error('An error occurred while fetching data:', error);
+    }
+}
+
 export function formatterDate(inputDate) {
     if(!inputDate) return inputDate
     var partiesDate = inputDate.split('-');

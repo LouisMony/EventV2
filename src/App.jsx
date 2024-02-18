@@ -16,10 +16,11 @@ import Rgpd from './pages/Settings/Rgpd';
 import './index.scss';
 
 //JS
-import { getAllEvents } from './js/helpers';
+import { getAllEvents, getAllInscriptions } from './js/helpers';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { loadEvents } from './reducers/eventSlice';
+import { loadInscriptions } from './reducers/inscriptionSlice';
 
 function App() {
   const { user } = useAuth();
@@ -33,6 +34,8 @@ function App() {
         try {
           const eventLoad = await getAllEvents();
           dispatch(loadEvents(eventLoad));
+          const inscriptionLoad = await getAllInscriptions();
+          dispatch(loadInscriptions(inscriptionLoad));
         } catch (error) {
           console.error('Error loading content:', error);
         }
