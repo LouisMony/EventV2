@@ -16,6 +16,7 @@ import Rgpd from './pages/Settings/Rgpd';
 import './index.scss';
 
 //JS
+import { supabase } from './supabase/client';
 import { getAllEvents, getAllInscriptions } from './js/helpers';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -28,21 +29,34 @@ function App() {
   const dispatch = useDispatch()
   const shouldDisplayNavbar = location.pathname === '/utilisation-des-donnees' || location.pathname === '/mon-compte' || location.pathname === '/settings' || location.pathname === '/evenements';
 
+  async function globalFetch() {
+    try {
+      const eventLoad = await getAllEvents();
+      dispatch(loadEvents(eventLoad));
+      const inscriptionLoad = await getAllInscriptions();
+      dispatch(loadInscriptions(inscriptionLoad));
+    } catch (error) {
+      console.error('Error loading content:', error);
+    }
+  }
+
   useEffect(() => {
     if (user) {
-      async function fetchEvents() {
-        try {
-          const eventLoad = await getAllEvents();
-          dispatch(loadEvents(eventLoad));
-          const inscriptionLoad = await getAllInscriptions();
-          dispatch(loadInscriptions(inscriptionLoad));
-        } catch (error) {
-          console.error('Error loading content:', error);
+      globalFetch();
+      
+      const channels = supabase.channel('custom-all-channel')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'events' },
+        (payload) => {
+          console.log('Change received!', payload)
+          globalFetch()
         }
-      }
-      fetchEvents();
+      )
+      .subscribe()
     }
   }, [user, dispatch]);
+
 
   return (
     <>
