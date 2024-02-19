@@ -87,7 +87,7 @@ export async function unsubscribeEvent(inscriptionData, eventData){
             console.error(error);
         }
         else {
-            const updatedEvent = await updateEvent('DeleteReservation', eventData)
+            const updatedEvent = await updateEvent('DeleteReservation', eventData, inscriptionData)
             
             if(updatedEvent){
                 return {updateEvent}
@@ -99,12 +99,18 @@ export async function unsubscribeEvent(inscriptionData, eventData){
     }
 }
 
-async function updateEvent(action, eventData){
-    if(action === "AddReservation"){
-        let newReservationNumber = eventData.reservations + 1
+async function updateEvent(action, eventData, inscriptionData){
+    if(action === "AddReservation"){        
+        let dataToUpdate = {
+            reservations: eventData.reservations,
+            waiting: eventData.waiting
+        }
+        if(eventData.places === eventData.reservations)dataToUpdate.waiting = dataToUpdate.waiting + 1
+        else {dataToUpdate.reservations = dataToUpdate.reservations + 1}
+
         try {
             
-            const { data, error } = await supabase.from('events').update({ reservations: newReservationNumber }).eq('id', eventData.id).select()
+            const { data, error } = await supabase.from('events').update(dataToUpdate).eq('id', eventData.id).select()
         
             if (error) {
                 console.error(error);
@@ -117,10 +123,23 @@ async function updateEvent(action, eventData){
         }
     }
     else if (action === "DeleteReservation"){
-        let newReservationNumber = eventData.reservations - 1
+        let dataToUpdate = {
+            reservations: eventData.reservations,
+            waiting: eventData.waiting
+        }
+        if(eventData.places === eventData.reservations){
+            if(inscriptionData.isOnWaitingList === true){
+                dataToUpdate.waiting = dataToUpdate.waiting - 1
+            }
+            else{
+                dataToUpdate.reservations = dataToUpdate.reservations - 1
+            }
+        }
+        else {dataToUpdate.reservations = dataToUpdate.reservations - 1}
+
         try {
             
-            const { data, error } = await supabase.from('events').update({ reservations: newReservationNumber }).eq('id', eventData.id).select()
+            const { data, error } = await supabase.from('events').update(dataToUpdate).eq('id', eventData.id).select()
         
             if (error) {
                 console.error(error);
