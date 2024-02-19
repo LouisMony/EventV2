@@ -77,6 +77,28 @@ export async function subscribeEvent(userId, userEmail, eventData){
     }
 }
 
+export async function unsubscribeEvent(inscriptionData, eventData){
+    console.log(inscriptionData, eventData);
+    
+    try {
+        const { error } = await supabase.from('inscriptions').delete().eq('id', inscriptionData.id)
+
+        if (error) {
+            console.error(error);
+        }
+        else {
+            const updatedEvent = await updateEvent('DeleteReservation', eventData)
+            
+            if(updatedEvent){
+                return {updateEvent}
+            }
+            
+        } 
+    } catch (error) {
+        console.error('An error occurred while deleting data:', error);
+    }
+}
+
 async function updateEvent(action, eventData){
     if(action === "AddReservation"){
         let newReservationNumber = eventData.reservations + 1
@@ -94,6 +116,21 @@ async function updateEvent(action, eventData){
             console.error('An error occurred while posting data:', error);
         }
     }
-
+    else if (action === "DeleteReservation"){
+        let newReservationNumber = eventData.reservations - 1
+        try {
+            
+            const { data, error } = await supabase.from('events').update({ reservations: newReservationNumber }).eq('id', eventData.id).select()
+        
+            if (error) {
+                console.error(error);
+            }
+            else {
+                return data
+            } 
+        } catch (error) {
+            console.error('An error occurred while posting data:', error);
+        }
+    }
     
 }
