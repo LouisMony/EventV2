@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
-const Filters = () => {
+const Filters = ({onClickFunction}) => {
   const [activeFilter, setActiveFilter] = useState('Date');
 
   const handleClick = (e) => {
     const clickedFilter = e.target.innerText;
     setActiveFilter(clickedFilter);
+    onClickFunction(clickedFilter)
   };
 
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -10,32 +10,48 @@ import Filters from "./Filters";
 //STYLE
 import '../../style/StyleHome.scss';
 
-function Home(){
-    const eventsSelector = useSelector(state => state.events.data)
+function Home() {
+  const eventsSelector = useSelector(state => state.events.data);
+  const [sortedEvents, setSortedEvents] = useState([...eventsSelector]); // State pour stocker les événements triés
 
-    return (
-      <div className='home'>
-        <div className="home__head">
-          <img src="./media/img/logo.svg" alt="Logo Events" />
-          <SearchBar />
-        </div>
-       
-        <Filters />
+  const handleClickFilter = (filter) => {
+    let sortedEventsCopy = [...eventsSelector]; // Copie du tableau d'origine
 
-        <ul className="home__events">
-            {eventsSelector ? eventsSelector.map((item, index) => (
-                <li key={index}>
-                  <Link to={'/event/'+item.id}>
-                      <EventBloc name={item.name} imageLink={item.image_link} category={item.category} date={item.date} places={item.places} reservations={item.reservations} />
-                  </Link>
-                </li>
-            )) : 
-            <span className="loader"></span>
-          }
-          
-        </ul>
-      </div>
-    );
+    if (filter === 'Thème') {
+      sortedEventsCopy.sort((a, b) => a.category.localeCompare(b.category));
+    }
+    if (filter === 'Date') {
+      sortedEventsCopy.sort((a, b) => new Date(a.date) - new Date(b.date));
+    }
+    if (filter === 'Lieu') {
+      sortedEventsCopy.sort((a, b) => a.location.localeCompare(b.location));
+    }
+
+    setSortedEvents(sortedEventsCopy); // Mettre à jour le state avec les événements triés
   }
-  
-  export default Home;
+
+  return (
+    <div className='home'>
+      <div className="home__head">
+        <img src="./media/img/logo.svg" alt="Logo Events" />
+        <SearchBar />
+      </div>
+
+      <Filters onClickFunction={handleClickFilter} />
+
+      <ul className="home__events">
+        {sortedEvents ? sortedEvents.map((item, index) => (
+          <li key={index}>
+            <Link to={'/event/' + item.id}>
+              <EventBloc name={item.name} imageLink={item.image_link} category={item.category} date={item.date} places={item.places} reservations={item.reservations} />
+            </Link>
+          </li>
+        )) :
+          <span className="loader"></span>
+        }
+      </ul>
+    </div>
+  );
+}
+
+export default Home;

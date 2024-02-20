@@ -64,7 +64,7 @@ function App() {
         {
           user ?
             <Routes location={location} key={location.pathname}>
-              <Route path='/evenements' element={<Home/>} />
+              <Route index path='/evenements' element={<Home/>} />
               <Route path='/mon-compte' element={<Account/>} />
               <Route path='/event/:id' element={<EventDetail/>} />
               <Route path='/settings' element={<Settings/>} />
