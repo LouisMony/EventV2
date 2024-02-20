@@ -12,10 +12,10 @@ import '../../style/StyleHome.scss';
 
 function Home() {
   const eventsSelector = useSelector(state => state.events.data);
-  const [sortedEvents, setSortedEvents] = useState([...eventsSelector]); // State pour stocker les événements triés
+  const [sortedEvents, setSortedEvents] = useState([...eventsSelector]);
 
   const handleClickFilter = (filter) => {
-    let sortedEventsCopy = [...eventsSelector]; // Copie du tableau d'origine
+    let sortedEventsCopy = [...eventsSelector];
 
     if (filter === 'Thème') {
       sortedEventsCopy.sort((a, b) => a.category.localeCompare(b.category));
@@ -27,7 +27,7 @@ function Home() {
       sortedEventsCopy.sort((a, b) => a.location.localeCompare(b.location));
     }
 
-    setSortedEvents(sortedEventsCopy); // Mettre à jour le state avec les événements triés
+    setSortedEvents(sortedEventsCopy);
   }
 
   return (

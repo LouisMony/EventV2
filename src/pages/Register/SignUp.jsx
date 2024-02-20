@@ -35,9 +35,7 @@ const SignUp = () => {
 
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage("Les mots de passe ne correspondent pas.");
-    } else {
-      console.log('FormData:', formData);
-      
+    } else {      
       try {
         setErrorMessage("");
         const { data, error } = await register(
@@ -45,7 +43,6 @@ const SignUp = () => {
           formData.password
         );
         if (!error && data) {
-          console.log('complete', data);
           toggleModal()
         }
       } catch (error) {

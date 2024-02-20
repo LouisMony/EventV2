@@ -51,7 +51,6 @@ export function formatterDate(inputDate) {
 }
 
 export async function subscribeEvent(userId, userEmail, eventData){
-    console.log(userId, userEmail, eventData);
     
     let dataSubscribe = {
         idUser : userId,
@@ -79,7 +78,6 @@ export async function subscribeEvent(userId, userEmail, eventData){
 }
 
 export async function unsubscribeEvent(inscriptionData, eventData){
-    console.log(inscriptionData, eventData);
     
     try {
         const { error } = await supabase.from('inscriptions').delete().eq('id', inscriptionData.id)

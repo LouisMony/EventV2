@@ -52,7 +52,6 @@ const EventDetail = () => {
   }
 
   const handleUnsubscribe = async () =>{
-    console.log('start unsuscribe');
 
     const data = await unsubscribeEvent(inscriptionInfo, eventInfo)
     if(data){
