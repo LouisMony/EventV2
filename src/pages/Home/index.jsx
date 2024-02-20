@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -12,7 +12,7 @@ import '../../style/StyleHome.scss';
 
 function Home() {
   const eventsSelector = useSelector(state => state.events.data);
-  const [sortedEvents, setSortedEvents] = useState([...eventsSelector]);
+  const [sortedEvents, setSortedEvents] = useState(null);
 
   const handleClickFilter = (filter) => {
     let sortedEventsCopy = [...eventsSelector];
@@ -29,6 +29,10 @@ function Home() {
 
     setSortedEvents(sortedEventsCopy);
   }
+
+  useEffect(() =>{
+    if(eventsSelector)setSortedEvents(eventsSelector)
+  },[eventsSelector])
 
   return (
     <div className='home'>
