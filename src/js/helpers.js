@@ -2,7 +2,8 @@ import { supabase } from "../supabase/client";
 
 export async function getAllEvents() {
     try {
-        let { data, errors } = await supabase.from('events').select('*')
+        const today = new Date().toISOString().split('T')[0];
+        let { data, errors } = await supabase.from('events').select('*').gt('date', today).order('date', { ascending: true })
 
         if (errors) {
             console.error(errors);
