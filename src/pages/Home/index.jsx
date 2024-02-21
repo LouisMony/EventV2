@@ -30,6 +30,14 @@ function Home() {
     setSortedEvents(sortedEventsCopy);
   }
 
+  const HandleSearch = (value) =>{
+    console.log(value);
+    const filteredEvents = eventsSelector.filter(item =>
+      item.name.toLowerCase().includes(value.toLowerCase())
+    );
+    setSortedEvents(filteredEvents);
+  }
+
   useEffect(() =>{
     if(eventsSelector)setSortedEvents(eventsSelector)
   },[eventsSelector])
@@ -38,7 +46,7 @@ function Home() {
     <div className='home'>
       <div className="home__head">
         <img src="./media/img/logo.svg" alt="Logo Events" />
-        <SearchBar />
+        <SearchBar onSearch={HandleSearch} />
       </div>
 
       <Filters onClickFunction={handleClickFilter} />
