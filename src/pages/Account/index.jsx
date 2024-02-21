@@ -6,6 +6,8 @@ import { useAuth } from '../../context/AuthProvider';
 
 //STYLE
 import '../../style/StyleAccount.scss';
+import { motion } from 'framer-motion';
+import { fadeOpacity, anim } from '../../js/animation';
 
 const Account = () => {
   const eventsSelector = useSelector(state => state.events.data);
@@ -25,7 +27,7 @@ const Account = () => {
   },[user, eventsSelector, inscriptionSelector])
 
   return (
-    <div className='account'>
+    <motion.div {...anim(fadeOpacity)} className='account'>
       <h2>Mes prochains évènements :</h2>
       <p>Super ! Vous êtes inscrit à {submittedEvents && submittedEvents.length} de nos prochains évenements.<br/> Si vous êtes sur liste d'attente pas de panique ! Notre équipe vous préviendra au plus vite en cas de désistement de l'un des participants </p>
       {submittedEvents ?
@@ -40,7 +42,7 @@ const Account = () => {
         </ul>
       : <span className='loader'></span>}
       
-    </div>
+    </motion.div>
   )
 }
 

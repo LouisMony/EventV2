@@ -5,6 +5,8 @@ import { useAuth } from '../../context/AuthProvider';
 
 //STYLE
 import '../../style/StyleSettings.scss';
+import { motion } from 'framer-motion';
+import { fadeOpacity, anim } from '../../js/animation';
 
 const Settings = () => {
   const { signOut } = useAuth();
@@ -25,7 +27,7 @@ const Settings = () => {
   }
 
   return (
-    <div className='settings'>
+    <motion.div {...anim(fadeOpacity)}className='settings'>
       {showModal ? <ModalSignOut confirmFunction={handleSignOut} closeFunction={toggleModal}/> : null }
       
       <h2>Paramètres</h2>
@@ -44,7 +46,7 @@ const Settings = () => {
         Nous sommes ouverts de 10h à 20h du lundi au samedi, même les jours fériés (sauf le 25 Décembre et le 1er Janvier)<br/><br/>
         Retrouvez-nous également sur Facebook <a style={{textDecoration: 'underline'}} href="https://www.facebook.com/fousduroy/?locale=fr_FR">@Les Fous du Roy</a> et Instagram <a style={{textDecoration: 'underline'}} href="https://www.instagram.com/les_fous_du_roy/">@les_fous_du_roy</a>
       </p>
-    </div>
+    </motion.div>
   )
 }
 

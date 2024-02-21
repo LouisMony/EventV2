@@ -2,10 +2,12 @@ import React from 'react'
 import GoBack from '../../components/GoBack/GoBack';
 //STYLE
 import '../../style/StyleSettings.scss';
+import { motion } from 'framer-motion';
+import { fadeOpacity, anim } from '../../js/animation';
 
 const Rgpd = () => {
   return (
-    <div className='settings'>
+    <motion.div {...anim(fadeOpacity)} className='settings'>
         <GoBack link={'/settings'}/>
         <h2 style={{marginTop: "12px"}}>Utilisation des données</h2>
 
@@ -25,7 +27,7 @@ const Rgpd = () => {
 
         Si vous estimez, après nous avoir contactés, que vos droits « Informatique et Libertés » ne
         sont pas respectés, vous pouvez adresser une réclamation à la CNIL.</p>
-    </div>
+    </motion.div>
   )
 }
 

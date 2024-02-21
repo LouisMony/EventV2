@@ -9,19 +9,22 @@ export const anim = variants => {
 
 export const fadeOpacity = {
     initial: {
-      opacity: 0,
+        //x: "-100%",
+        opacity: 0,
     },
     enter: {
+        //x: "0%",
         opacity: 1,
         transition: {
-            duration: 0.3,
+            duration: 0.2,
             // ease: [0.73, 0, 0.23, 1],
         },
     },
     exit: {
         opacity: 0,
+        //x: "100%",
         transition: {
-            duration: 0.3,
+            duration: 0.2,
             // ease: [0.73, 0, 0.23, 1],
         },
     },

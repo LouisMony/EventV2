@@ -6,13 +6,14 @@ import { subscribeEvent, unsubscribeEvent } from '../../js/helpers';
 import { Link, useNavigate } from 'react-router-dom';
 //STYLE
 import '../../style/StyleEventDetails.scss';
+import { motion } from 'framer-motion';
+import { fadeOpacity, anim } from '../../js/animation';
 
 //COMP
 import Info from './Info';
 import ModalConfirm from './ModalConfirm';
 import ModalDelete from './ModalDelete';
 import GoBack from '../../components/GoBack/GoBack';
-
 
 //IMG
 import iconArrow from '../../assets/arrow_left.svg'
@@ -92,7 +93,7 @@ const EventDetail = () => {
     <>
     {
       eventInfo ?
-        <div className='eventDetail'>
+        <motion.div {...anim(fadeOpacity)} className='eventDetail'>
           {showModalDelete ? <ModalDelete confirmFunction={handleUnsubscribe} closeFunction={toggleModalDelete}/> : null }
           {showModal ? <ModalConfirm confirmFunction={handleSubscribe} closeFunction={toggleModal}/> : null }
           <div className='eventDetail__banner' style={{ backgroundImage: `url(${eventInfo.image_link})` }}>
@@ -119,7 +120,7 @@ const EventDetail = () => {
             </div>
           </div>
           
-        </div>
+        </motion.div>
       : <span className='loader'></span>
     }
     </>
