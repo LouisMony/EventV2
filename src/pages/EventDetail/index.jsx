@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAuth } from '../../context/AuthProvider';
 import { subscribeEvent, unsubscribeEvent } from '../../js/helpers';
+import { Link, useNavigate } from 'react-router-dom';
 //STYLE
 import '../../style/StyleEventDetails.scss';
 
@@ -10,7 +11,8 @@ import '../../style/StyleEventDetails.scss';
 import Info from './Info';
 import ModalConfirm from './ModalConfirm';
 import ModalDelete from './ModalDelete';
-import { Link, useNavigate } from 'react-router-dom';
+import GoBack from '../../components/GoBack/GoBack';
+
 
 //IMG
 import iconArrow from '../../assets/arrow_left.svg'
@@ -94,10 +96,7 @@ const EventDetail = () => {
           {showModalDelete ? <ModalDelete confirmFunction={handleUnsubscribe} closeFunction={toggleModalDelete}/> : null }
           {showModal ? <ModalConfirm confirmFunction={handleSubscribe} closeFunction={toggleModal}/> : null }
           <div className='eventDetail__banner' style={{ backgroundImage: `url(${eventInfo.image_link})` }}>
-            <Link to="#" onClick={goBack}>
-              <img src={iconArrow} alt='Revenir à la page précendente'/>
-              <span>Retour</span>
-            </Link>
+            <GoBack link="/evenements"/>
           </div>
           <div className='eventDetail__content'>
             <div className='eventDetail__content__title'>

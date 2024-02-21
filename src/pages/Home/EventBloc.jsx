@@ -21,10 +21,15 @@ const EventBloc = ({name, imageLink, category, date, places, reservations }) => 
       </div>
       <div className='eventBloc__end'>
         <img src="./media/img/arrow_right.svg" alt="Voir le détail" />
-        <p>
+        {reservations === places ? 
+          <p>Sur fil d'attente</p>
+        :
+          <p>
             <span className='count'>{reservations} / {places}</span>
             <span>Participants</span>
-        </p>
+          </p>
+        }
+        
       </div>
     </div>
   )

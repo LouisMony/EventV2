@@ -20,7 +20,6 @@ const Account = () => {
     const userEvents = eventsSelector.filter(event => {
       return userInscriptions.some(inscription => inscription.idEvent === event.id);
     });
-    console.log(userEvents);
     setSubmittedEventsEvents(userEvents)
     
   },[user, eventsSelector, inscriptionSelector])
@@ -28,7 +27,7 @@ const Account = () => {
   return (
     <div className='account'>
       <h2>Mes prochains évènements :</h2>
-      <p>Super ! Vous êtes inscrit à 3 de nos prochains évenements. Si vous êtes sur liste d'attente pas de panique ! Notre équipe vous préviendra au plus vite en cas de désistement de l'un des participants </p>
+      <p>Super ! Vous êtes inscrit à {submittedEvents && submittedEvents.length} de nos prochains évenements.<br/> Si vous êtes sur liste d'attente pas de panique ! Notre équipe vous préviendra au plus vite en cas de désistement de l'un des participants </p>
       {submittedEvents ?
         <ul className="account__events">
           {submittedEvents.map(item => (

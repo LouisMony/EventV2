@@ -1,11 +1,13 @@
 import React from 'react'
+import GoBack from '../../components/GoBack/GoBack';
 //STYLE
 import '../../style/StyleSettings.scss';
 
 const Rgpd = () => {
   return (
     <div className='settings'>
-        <h2>Utilisation des données</h2>
+        <GoBack link={'/settings'}/>
+        <h2 style={{marginTop: "12px"}}>Utilisation des données</h2>
 
         <p>Les informations recueillies dans le questionnaire sont enregistrées dans un fichier informatisé par <strong>le gérants des Fous du Roy</strong>. La base légale du traitement est le contrat. <br/><br/>
 
