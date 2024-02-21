@@ -9,6 +9,8 @@ import Filters from "./Filters";
 
 //STYLE
 import '../../style/StyleHome.scss';
+import { motion } from "framer-motion";
+import { anim, fadeOpacity } from "../../js/animation";
 
 function Home() {
   const eventsSelector = useSelector(state => state.events.data);
@@ -43,7 +45,7 @@ function Home() {
   },[eventsSelector])
 
   return (
-    <div className='home'>
+    <motion.div {...anim(fadeOpacity)} className='home'>
       <div className="home__head">
         <img src="./media/img/logo.svg" alt="Logo Events" />
         <SearchBar onSearch={HandleSearch} />
@@ -62,7 +64,7 @@ function Home() {
           <span className="loader"></span>
         }
       </ul>
-    </div>
+    </motion.div>
   );
 }
 

@@ -14,6 +14,7 @@ import Rgpd from './pages/Settings/Rgpd';
 
 //STYLE 
 import './index.scss';
+import { AnimatePresence } from 'framer-motion';
 
 //JS
 import { supabase } from './supabase/client';
@@ -60,6 +61,7 @@ function App() {
   return (
     <>
         {shouldDisplayNavbar && user && <Navbar/>}
+        <AnimatePresence mode='wait'>
         {
           user ?
             <Routes location={location} key={location.pathname}>
@@ -75,6 +77,7 @@ function App() {
               <Route path='/register/me-connecter' element={<SignIn/>} />
             </Routes> 
         }
+        </AnimatePresence>
     </>
   );
 }
