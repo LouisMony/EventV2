@@ -2,14 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap');
 
 //VARIABLE
-$mainColor : #3a44ff;
-$mainColorLight : #dcdeff;
-$mainColorHover : #212cff;
+$mainColor : #FF5833;
+$mainColorLight : #fee9e4;
+$mainColorHover : #ef3f18;
 $danger : #FF3A3A;
 $dangerLight : #ffdfdf;
-$mainBg :#f2f3f7;
-$secondBg : #F9F9F9;
-$fontColor : #222222;
+$mainBg :#FFFFFF;
+$secondBg : #f8f8f8;
+$thirdBg: #F6F6F6;
+$borderColor: #E9E9E9;
+$fontColor: #535353;
+$titleColor: #222222;
 $hr : rgba(110, 113, 122, 0.38);
 $focus : rgb(196, 196, 196);
 
@@ -61,7 +64,7 @@ ul{
   padding: calc($baseUnit/2);
   border-radius: 10px;
   height: 120px;
-  background-color: white;
+  background-color: $secondBg;
   box-shadow: 0px 9px 15px -2px rgba(0,0,0,0.08);
   
   &__img{
@@ -88,6 +91,7 @@ ul{
       &__title{
           font-weight: 600;
           font-size: 16px;
+          color: $titleColor;
       }
   }
 
