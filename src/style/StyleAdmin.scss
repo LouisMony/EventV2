@@ -1,0 +1,47 @@
+@import '../index.scss';
+
+.admin{
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    table{
+        -webkit-box-shadow: 0px 12px 35px 5px rgba(0,0,0,0.13); 
+        box-shadow: 0px 12px 35px 5px rgba(0,0,0,0.13);
+        width: calc((100% / 12)*10);
+        text-align: left;
+        border-collapse: collapse;
+        font-size: 12px;
+        color: $fontColor;
+        
+        border: solid 1px $borderColor;
+
+        thead{
+            background-color: $thirdBg;
+            th{
+                padding: 15px 20px;
+                color: $titleColor;
+                font-weight: 500;
+            }
+        }
+
+        tbody{
+            background-color: $mainBg;
+            tr{
+                transition: all 100ms linear;
+                cursor: pointer;
+                &:hover{
+                    background-color: $thirdBg;
+                }
+    
+                td{
+                    padding: 15px 20px;
+                    
+                    button{
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+}

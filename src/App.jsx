@@ -11,6 +11,7 @@ import Settings from './pages/Settings';
 import EventDetail from './pages/EventDetail';
 import Navbar from './components/Navbar/Navbar';
 import Rgpd from './pages/Settings/Rgpd';
+import Admin from './pages/Admin';
 
 //STYLE 
 import './index.scss';
@@ -65,10 +66,11 @@ function App() {
         {
           user ?
             <Routes location={location} key={location.pathname}>
-              <Route index path='/evenements' element={<Home/>} />
+              <Route path='/evenements' element={<Home/>} />
               <Route path='/mon-compte' element={<Account/>} />
               <Route path='/event/:id' element={<EventDetail/>} />
               <Route path='/settings' element={<Settings/>} />
+              <Route path='/fdr-admin' element={<Admin/>} />
               <Route path='/utilisation-des-donnees' element={<Rgpd/>} />
             </Routes> 
           : 

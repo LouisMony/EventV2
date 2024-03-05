@@ -132,6 +132,7 @@ ul{
   border-radius: 5px;  
   width: 100%;
   transition: all 300ms linear;
+  cursor: pointer;
 
   &:hover{
       background-color: $mainColorHover;

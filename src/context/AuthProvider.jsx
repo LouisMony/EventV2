@@ -23,7 +23,6 @@ const AuthProvider = ({ children }) => {
       if (event === "SIGNED_IN") {
         setUser(session.user);
         setAuth(true);
-        navigate('/evenements')
       }
       else if (event === "SIGNED_OUT") {
         setUser(null);
