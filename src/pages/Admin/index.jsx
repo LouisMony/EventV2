@@ -2,20 +2,28 @@ import React, { useState } from 'react'
 import '../../style/StyleAdmin.scss';
 import { useSelector } from 'react-redux';
 import { formatterDate } from '../../js/helpers';
+import AdminForm from './AdminForm';
 
 const Admin = () => {
+
   const eventsSelector = useSelector(state => state.events.data);
   const inscriptionSelector = useSelector(state => state.inscriptions.data)
 
   const [eventInscriptions, setEventInscriptions] = useState(null)
+  const [showForm, setShowForm] = useState(false)
 
   const handleSelectEvent = (id) =>{
     console.log(id);
     setEventInscriptions(inscriptionSelector.filter(inscription => inscription.idEvent === id));
   }
 
+  const toggleForm = () =>{
+    setShowForm(!showForm)
+  }
+
   return (
     <div className='admin'>
+      {showForm && <AdminForm closeForm={toggleForm} />}
       <table>
           <thead>
               <tr>
@@ -33,7 +41,7 @@ const Admin = () => {
                     <td>{formatterDate(item.date)}</td>
                     <td>{item.reservations}/{item.places}</td>
                     <td>{item.reservations}</td>
-                    <td><button>Modifier</button></td>
+                    <td><button onClick={toggleForm}>Modifier</button></td>
                 </tr>
               )) :
                 <span className="loader"></span>
