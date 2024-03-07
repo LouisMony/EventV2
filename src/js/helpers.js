@@ -150,5 +150,27 @@ async function updateEvent(action, eventData, inscriptionData){
             console.error('An error occurred while posting data:', error);
         }
     }
-    
+}
+
+export async function addEvent(dataForm){
+    console.log(dataForm)
+
+    const { data, error } = await supabase
+    .from('events')
+    .insert([
+        { 
+            name : dataForm.name,
+            description : dataForm.description,
+            date : dataForm.date,
+            hour : dataForm.hour,
+            places : dataForm.places,
+            reservations : 0,
+            waiting : 0,
+            image_link: dataForm.illustration,
+            category: dataForm.categorie,
+            location: dataForm.location,
+        }
+    ])
+    .select()
+        
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { addEvent } from '../../js/helpers';
 
 const AdminForm = (props) => {
     const [buttonContent, setButtonContent] = useState('Valider')
@@ -29,7 +30,7 @@ const AdminForm = (props) => {
         setIsLoading(true);
         setButtonContent('Chargement ...');
 
-        console.log(formData);
+        await addEvent(formData)
     
         // const data = await login(formData.email, formData.password);
         // if(data){
@@ -108,7 +109,7 @@ const AdminForm = (props) => {
                     <label>
                         <span>Heure : </span>
                         <input
-                            type="text"
+                            type="time"
                             name="hour"
                             value={formData.hour}
                             onChange={handleChange}
