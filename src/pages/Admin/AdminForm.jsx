@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { addEvent } from '../../js/helpers';
 
 const AdminForm = (props) => {
@@ -25,31 +25,42 @@ const AdminForm = (props) => {
         });
     };
 
+    useEffect(() =>{
+        if(props.type === 'update'){
+            console.log(props.selectedEvent);
+            
+            setFormData({
+                name: props.selectedEvent.name,
+                categorie: props.selectedEvent.category,
+                description:props.selectedEvent.description,
+                places: props.selectedEvent.places, 
+                location : props.selectedEvent.location,
+                illustration : props.selectedEvent.image_link,
+                date: props.selectedEvent.date,
+                hour: props.selectedEvent.hour,
+            })
+        }
+    },[])
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         setButtonContent('Chargement ...');
 
-        await addEvent(formData)
-    
-        // const data = await login(formData.email, formData.password);
-        // if(data){
-        //   console.log(data);
-        // }
-        // if(error){
-        //   console.log(error);
-        //   setErrorMessage("Email or Password Incorrect");
-        // }
+        if(props.type === 'add') await addEvent(formData)
+        else{
+        }
     
         setIsLoading(false);
-        setButtonContent('Me connecter');
+        setButtonContent('Suivant');
+        props.closeForm('add')
       };
     return (
         <div className='admin__form'>
             
             <form onSubmit={handleSubmit}>
-                <button className='close' onClick={props.closeForm}>Fermer</button>
-                <h2>Ajouter un évènement</h2>
+                <button className='close' onClick={() => props.closeForm('add')}>Fermer</button>
+                {props.type === 'add' ? <h2>Ajouter un évènement</h2> : <h2>Modifier l'évènement</h2> }
 
                 <label>
                     <span>Nom de l'évènement :</span>
