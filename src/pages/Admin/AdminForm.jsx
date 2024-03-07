@@ -57,7 +57,7 @@ const AdminForm = (props) => {
         props.closeForm('add')
     };
 
-    
+
     return (
         <div className='admin__form'>
             
@@ -103,6 +103,7 @@ const AdminForm = (props) => {
                     <input
                         type="number"
                         name="places"
+                        min={props.type === 'update' && props.selectedEvent ? props.selectedEvent.reservations : 0}
                         value={formData.places}
                         onChange={handleChange}
                         required
@@ -155,7 +156,7 @@ const AdminForm = (props) => {
                     />
                 </label>
 
-                <button className='mainButton' type="submit">Valider</button>
+                <button disabled={isLoading} className='mainButton' type="submit">{buttonContent}</button>
             </form>
         </div>
     )
