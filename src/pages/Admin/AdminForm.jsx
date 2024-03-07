@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { addEvent } from '../../js/helpers';
+import { addEvent, updatedEventAdmin } from '../../js/helpers';
 
 const AdminForm = (props) => {
     const [buttonContent, setButtonContent] = useState('Valider')
@@ -7,6 +7,7 @@ const AdminForm = (props) => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const [formData, setFormData] = useState({
+        id: '',
         name: '',
         categorie: '',
         description:'',
@@ -30,6 +31,7 @@ const AdminForm = (props) => {
             console.log(props.selectedEvent);
             
             setFormData({
+                id: props.selectedEvent.id,
                 name: props.selectedEvent.name,
                 categorie: props.selectedEvent.category,
                 description:props.selectedEvent.description,
@@ -48,13 +50,14 @@ const AdminForm = (props) => {
         setButtonContent('Chargement ...');
 
         if(props.type === 'add') await addEvent(formData)
-        else{
-        }
+        else await updatedEventAdmin(formData)
     
         setIsLoading(false);
         setButtonContent('Suivant');
         props.closeForm('add')
-      };
+    };
+
+    
     return (
         <div className='admin__form'>
             

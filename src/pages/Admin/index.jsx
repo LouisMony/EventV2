@@ -43,7 +43,7 @@ const Admin = () => {
           </thead>
           <tbody>
             {eventsSelector ? eventsSelector.map((item, index) => (
-                <tr className={selectedEvent.id === item.id ? 'selectedRow' : ''} key={item.id} onClick={() => handleSelectEvent(item.id)}>
+                <tr className={selectedEvent && selectedEvent.id === item.id ? 'selectedRow' : ''} key={item.id} onClick={() => handleSelectEvent(item.id)}>
                     <td>{item.name}</td>
                     <td>{formatterDate(item.date)}</td>
                     <td>{item.reservations}/{item.places}</td>

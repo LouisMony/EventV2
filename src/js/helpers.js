@@ -171,6 +171,27 @@ export async function addEvent(dataForm){
             location: dataForm.location,
         }
     ])
-    .select()
-        
+    .select()    
 }
+
+export async function updatedEventAdmin(dataForm){
+    console.log(dataForm)
+
+    const { data, error } = await supabase
+    .from('events')
+    .update(
+        { 
+            name : dataForm.name,
+            description : dataForm.description,
+            date : dataForm.date,
+            hour : dataForm.hour,
+            places : dataForm.places,
+            image_link: dataForm.illustration,
+            category: dataForm.categorie,
+            location: dataForm.location,
+        }
+    )
+    .eq('id', dataForm.id)
+    .select()    
+}
+          
