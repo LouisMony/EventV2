@@ -28,6 +28,8 @@ const AdminForm = (props) => {
         e.preventDefault();
         setIsLoading(true);
         setButtonContent('Chargement ...');
+
+        console.log(formData);
     
         // const data = await login(formData.email, formData.password);
         // if(data){
@@ -104,7 +106,7 @@ const AdminForm = (props) => {
                         />
                     </label>
                     <label>
-                        <span>Nombre de places : </span>
+                        <span>Heure : </span>
                         <input
                             type="text"
                             name="hour"
