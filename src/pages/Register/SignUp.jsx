@@ -19,6 +19,17 @@ const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const register = (email, password) => supabase.auth.signUp({email, password });
+  
+  const addNewProfile = async (userId) =>{
+    console.log(userId);
+    const { data, error } = await supabase.from('profils').insert([
+      { id: userId, 
+        role: 'basic_user' 
+      },
+    ])
+    .select() 
+    return { data, error }
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,6 +55,9 @@ const SignUp = () => {
         );
         if (!error && data) {
           toggleModal()
+        }
+        if(error){
+          setErrorMessage("Erreur lors de la création du compte.");
         }
       } catch (error) {
         setErrorMessage("Erreur lors de la création du compte.");
@@ -76,7 +90,7 @@ const SignUp = () => {
         </label>
 
         <label>
-          <span>Mot de passe</span>
+          <span>Mot de passe (minimum 6 caractères)</span>
           <input
             type="password"
             name="password"
