@@ -24,9 +24,11 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { loadEvents } from './reducers/eventSlice';
 import { loadInscriptions } from './reducers/inscriptionSlice';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const { user } = useAuth();
+  const navigate = useNavigate()
   const location = useLocation();
   const dispatch = useDispatch()
   const shouldDisplayNavbar = location.pathname === '/utilisation-des-donnees' || location.pathname === '/mon-compte' || location.pathname === '/settings' || location.pathname === '/evenements';
@@ -44,6 +46,7 @@ function App() {
 
   useEffect(() => {
     if (user) {
+      navigate('/evenements')
       globalFetch();
       
       const channels = supabase.channel('custom-all-channel')
@@ -55,6 +58,9 @@ function App() {
         }
       )
       .subscribe()
+    }
+    else{
+      navigate('/register/me-connecter')
     }
   }, [user, dispatch]);
 
