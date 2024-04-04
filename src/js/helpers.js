@@ -56,10 +56,11 @@ export async function subscribeEvent(userId, userEmail, eventData){
         idUser : userId,
         mailUser: userEmail,
         idEvent: eventData.id,
-        isOnWaitingList: eventData.places === eventData.reservations ? true : false
+        isOnWaitingList: (eventData.isFull || (eventData.places === eventData.reservations)) ? true : false
     }
 
     try {
+        console.log(userId, userEmail, eventData);
         const { data, error } = await supabase.from('inscriptions').insert([dataSubscribe]).select()
 
         if (error) {
@@ -102,7 +103,8 @@ async function updateEvent(action, eventData, inscriptionData){
     if(action === "AddReservation"){        
         let dataToUpdate = {
             reservations: eventData.reservations,
-            waiting: eventData.waiting
+            waiting: eventData.waiting,
+            isFull: (eventData.isFull || (eventData.places === (eventData.reservations + 1))) ? true : false,
         }
         if(eventData.places === eventData.reservations)dataToUpdate.waiting = dataToUpdate.waiting + 1
         else {dataToUpdate.reservations = dataToUpdate.reservations + 1}

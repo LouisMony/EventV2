@@ -80,8 +80,8 @@ const EventDetail = () => {
 
     if(inscriptionInfo){
       setButtonIsDisabled(true)
-      if(inscriptionInfo.isOnWaitingList){setButtonText("Inscrit dans la file d'attente")}
-      if(!inscriptionInfo.isOnWaitingList){setButtonText("Inscrit à cette évenement")}
+      if(inscriptionInfo.isOnWaitingList){setButtonText("Inscris dans la file d'attente")}
+      if(!inscriptionInfo.isOnWaitingList){setButtonText("Inscris à cet évenement")}
     }
     else{setButtonIsDisabled(false)}
     
@@ -110,7 +110,7 @@ const EventDetail = () => {
               {eventInfo.description}
             </p>
            
-            {eventInfo.places === eventInfo.reservations && !inscriptionInfo ? 
+            {((eventInfo.places === eventInfo.reservations) || eventInfo.isFull) && !inscriptionInfo ? 
               <p className='alert'>Cet événement est actuellement complet, vous pouvez cependant vous inscrire dans la file d’attente : en cas de désistement d’un participant vous pourriez être recontacter par notre équipe pour pouvoir participer.</p> 
             : null}
               

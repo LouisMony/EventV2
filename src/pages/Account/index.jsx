@@ -35,7 +35,7 @@ const Account = () => {
           {submittedEvents.map(item => (
             <li key={item.id}>
               <Link to={`/event/${item.id}`}>
-                <EventBloc name={item.name} imageLink={item.image_link} category={item.category} date={item.date} places={item.places} reservations={item.reservations} />
+                <EventBloc name={item.name} imageLink={item.image_link} category={item.category} date={item.date} places={item.places} reservations={item.reservations} isFull={item.isFull} />
               </Link>
             </li>
           ))}

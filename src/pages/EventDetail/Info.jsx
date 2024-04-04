@@ -36,7 +36,12 @@ const Info = ({data}) => {
             <div className='eventDetail__info__item item4'>
                 <div>
                     <img src={iconPeople} alt='Icone Inscrits'/>
-                    <span>{data.reservations} / {data.places}</span>
+                    {
+                        !data.isFull ? 
+                            <span>{data.reservations} / {data.places}</span>
+                        : 
+                            <span>Complet</span>
+                    }
                 </div>
             </div>
         </div>

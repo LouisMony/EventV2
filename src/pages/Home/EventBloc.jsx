@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { formatterDate } from '../../js/helpers'
 
-const EventBloc = ({name, imageLink, category, date, places, reservations }) => {
+const EventBloc = ({name, imageLink, category, date, places, reservations, isFull }) => {
 
   const [formattedDate, setFormattedDate] = useState(null)
   
@@ -21,7 +21,7 @@ const EventBloc = ({name, imageLink, category, date, places, reservations }) => 
       </div>
       <div className='eventBloc__end'>
         <img src="./media/img/arrow_right.svg" alt="Voir le détail" />
-        {reservations === places ? 
+        {reservations === places ||  isFull ? 
           <p>Sur fil d'attente</p>
         :
           <p>

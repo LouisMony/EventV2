@@ -58,7 +58,7 @@ function Home() {
         {sortedEvents ? sortedEvents.map((item, index) => (
           <li key={index}>
             <Link to={'/event/' + item.id}>
-              <EventBloc name={item.name} imageLink={item.image_link} category={item.category} date={item.date} places={item.places} reservations={item.reservations} />
+              <EventBloc name={item.name} imageLink={item.image_link} category={item.category} date={item.date} places={item.places} reservations={item.reservations} isFull={item.isFull} />
             </Link>
           </li>
         )) :
