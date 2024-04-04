@@ -54,7 +54,9 @@ const SignUp = () => {
           formData.password
         );
         if (!error && data) {
-          toggleModal()
+          console.log(data);
+          const profil = await addNewProfile(data.user.id);
+          console.log(profil);
         }
         if(error){
           setErrorMessage("Erreur lors de la création du compte.");

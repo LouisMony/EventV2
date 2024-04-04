@@ -19,11 +19,12 @@ import { AnimatePresence } from 'framer-motion';
 
 //JS
 import { supabase } from './supabase/client';
-import { getAllEvents, getAllInscriptions } from './js/helpers';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { getAllEvents, getAllInscriptions, getAllProfils } from './js/helpers';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadEvents } from './reducers/eventSlice';
 import { loadInscriptions } from './reducers/inscriptionSlice';
+import { loadProfils } from './reducers/profilsSlice';
 import { useNavigate } from 'react-router-dom';
 
 function App() {
@@ -31,22 +32,38 @@ function App() {
   const navigate = useNavigate()
   const location = useLocation();
   const dispatch = useDispatch()
+  const profilsSelector = useSelector(state => state.profils.data)
   const shouldDisplayNavbar = location.pathname === '/utilisation-des-donnees' || location.pathname === '/mon-compte' || location.pathname === '/settings' || location.pathname === '/evenements';
-
+  const [roleUser, setRoleUser] = useState('basic_user')
+  
   async function globalFetch() {
     try {
       const eventLoad = await getAllEvents();
       dispatch(loadEvents(eventLoad));
       const inscriptionLoad = await getAllInscriptions();
       dispatch(loadInscriptions(inscriptionLoad));
+      const profilsLoad = await getAllProfils();
+      dispatch(loadProfils(profilsLoad));
     } catch (error) {
       console.error('Error loading content:', error);
     }
   }
 
+  async function getUserRole(userInfo){
+    if(userInfo && profilsSelector){
+      console.log(userInfo);
+      const selectedUser = profilsSelector.find((user) => user.id === userInfo.id);
+      setRoleUser(selectedUser)
+      console.log(selectedUser);
+    }
+    else{
+      console.log("abort");
+    }
+  }
+
   useEffect(() => {
     if (user) {
-      navigate('/evenements')
+      //navigate('/evenements')
       globalFetch();
       
       const channels = supabase.channel('custom-all-channel')
@@ -60,9 +77,13 @@ function App() {
       .subscribe()
     }
     else{
-      navigate('/register/me-connecter')
+      //navigate('/register/me-connecter')
     }
   }, [user, dispatch]);
+
+  useEffect(() =>{
+    if(user && profilsSelector) getUserRole(user)
+  },[user, profilsSelector])
 
 
   return (
@@ -76,7 +97,7 @@ function App() {
               <Route path='/mon-compte' element={<Account/>} />
               <Route path='/event/:id' element={<EventDetail/>} />
               <Route path='/settings' element={<Settings/>} />
-              <Route path='/fdr-admin' element={<Admin/>} />
+              {roleUser.role === "admin_user" ? <Route path='/fdr-admin' element={<Admin/>} /> : null}
               <Route path='/utilisation-des-donnees' element={<Rgpd/>} />
             </Routes> 
           : 
