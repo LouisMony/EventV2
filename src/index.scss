@@ -22,6 +22,7 @@ $baseUnit: 24px;
 
 //GENERAL
 *{
+  -webkit-tap-highlight-color: transparent;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -43,6 +44,10 @@ p,h1,h2,h3,h3{
 a{
   text-decoration: none;
   color: inherit;
+
+  &:focus{
+    outline: none;
+  }
 }
 
 ul{
