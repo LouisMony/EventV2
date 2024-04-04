@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 import { anim, fadeOpacity } from "../../js/animation";
 
 function Home() {
+  
   const eventsSelector = useSelector(state => state.events.data);
   const [sortedEvents, setSortedEvents] = useState(null);
 
