@@ -33,7 +33,7 @@ const Settings = () => {
       <h2>Paramètres</h2>
 
       <ul className='settings__list'>
-          <SettingItem link='/mon-compte' label='Modifier mes informations' />
+          <SettingItem link='/modifier-mes-informations' label='Modifier mes informations' />
           <SettingItem link='/utilisation-des-donnees' label='Utilisation des données' />
           <div onClick={toggleModal}><SettingItem label='Me déconnecter' /></div>
       </ul>

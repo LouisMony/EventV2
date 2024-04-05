@@ -12,6 +12,7 @@ import EventDetail from './pages/EventDetail';
 import Navbar from './components/Navbar/Navbar';
 import Rgpd from './pages/Settings/Rgpd';
 import Admin from './pages/Admin';
+import UpdateProfile from './pages/Settings/UpdateProfile';
 
 //STYLE 
 import './index.scss';
@@ -99,6 +100,7 @@ function App() {
               <Route path='/settings' element={<Settings/>} />
               {roleUser.role === "admin_user" ? <Route path='/fdr-admin' element={<Admin/>} /> : null}
               <Route path='/utilisation-des-donnees' element={<Rgpd/>} />
+              <Route path='/modifier-mes-informations' element={<UpdateProfile/>} />
             </Routes> 
           : 
             <Routes location={location} key={location.pathname}>
