@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import '../../style/StyleRegister.scss';
 import GoBack from '../../components/GoBack/GoBack';
 import { useAuth } from '../../context/AuthProvider';
+import { supabase } from '../../supabase/client';
 
 const UpdateProfile = () => {
   const {user} = useAuth()
@@ -35,8 +36,28 @@ const UpdateProfile = () => {
       setButtonContent("Modifier")
     }
 
-    else{
-      
+    else {
+      try {
+        const { user, error } = await supabase.auth.updateUser({
+          email: formData.email,
+          currentPassword: formData.currentPassword,
+          newPassword: formData.currentPassword,
+        }).select();
+    
+        if (error) {
+          setErrorMessage(error.message);
+          setIsLoading(false);
+          setButtonContent("Modifier");
+        } else {
+          console.log("User email updated successfully");
+          console.log(user);
+        }
+      } catch (error) {
+        console.error("Error updating user email:", error.message);
+        setErrorMessage("Une erreur s'est produite lors de la mise à jour de l'email.");
+        setIsLoading(false);
+        setButtonContent("Modifier");
+      }
     }
   }
 
@@ -75,7 +96,6 @@ const UpdateProfile = () => {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            required
           />
         </label>
 
@@ -86,7 +106,6 @@ const UpdateProfile = () => {
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
-            required
           />
         </label>
         <button disabled={isLoading} className='mainButton' type="submit">{buttonContent}</button>
