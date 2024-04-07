@@ -24,10 +24,10 @@ const Filters = ({onClickFunction}) => {
         Thème
       </span>
       <span
-        className={activeFilter === 'Lieu' ? 'filterActive' : ''}
+        className={activeFilter === 'Reservations' ? 'filterActive' : ''}
         onClick={handleClick}
       >
-        Lieu
+        Reservations
       </span>
     </div>
   );

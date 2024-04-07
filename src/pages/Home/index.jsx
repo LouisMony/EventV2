@@ -26,9 +26,10 @@ function Home() {
     if (filter === 'Date') {
       sortedEventsCopy.sort((a, b) => new Date(a.date) - new Date(b.date));
     }
-    if (filter === 'Lieu') {
-      sortedEventsCopy.sort((a, b) => a.location.localeCompare(b.location));
+    if (filter === 'Reservations') {
+      sortedEventsCopy.sort((a, b) => a.reservations - b.reservations);
     }
+    console.log(sortedEventsCopy);
 
     setSortedEvents(sortedEventsCopy);
   }

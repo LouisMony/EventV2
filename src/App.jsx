@@ -34,7 +34,7 @@ function App() {
   const location = useLocation();
   const dispatch = useDispatch()
   const profilsSelector = useSelector(state => state.profils.data)
-  const shouldDisplayNavbar = location.pathname === '/utilisation-des-donnees' || location.pathname === '/mon-compte' || location.pathname === '/settings' || location.pathname === '/evenements';
+  const shouldDisplayNavbar = location.pathname === '/utilisation-des-donnees' || location.pathname === '/mon-compte' || location.pathname === '/settings' || location.pathname === '/evenements' || location.pathname === '/fdr-admin';
   const [roleUser, setRoleUser] = useState('basic_user')
   
   async function globalFetch() {
@@ -52,19 +52,13 @@ function App() {
 
   async function getUserRole(userInfo){
     if(userInfo && profilsSelector){
-      console.log(userInfo);
       const selectedUser = profilsSelector.find((user) => user.id === userInfo.id);
       setRoleUser(selectedUser)
-      console.log(selectedUser);
-    }
-    else{
-      console.log("abort");
     }
   }
 
   useEffect(() => {
     if (user) {
-      //navigate('/evenements')
       globalFetch();
       
       const channels = supabase.channel('custom-all-channel')
@@ -77,14 +71,23 @@ function App() {
       )
       .subscribe()
     }
-    else{
-      //navigate('/register/me-connecter')
-    }
   }, [user, dispatch]);
 
   useEffect(() =>{
     if(user && profilsSelector) getUserRole(user)
   },[user, profilsSelector])
+
+  useEffect(() => {
+    if (user) {
+      if (location.pathname === '/' || location.pathname === '/register/me-connecter' || location.pathname === '/register/creer-un-compte') {
+        //navigate('/evenements');
+      }
+    } else {
+      if (location.pathname !== '/register/me-connecter' || location.pathname === '/register/creer-un-compte') {
+        //navigate('/register/me-connecter');
+      }
+    }
+  }, [user, location]);
 
 
   return (
