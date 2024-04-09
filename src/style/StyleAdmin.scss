@@ -34,8 +34,8 @@
     }
 
     table{
-        -webkit-box-shadow: 0px 12px 35px 5px rgba(0,0,0,0.10); 
-        box-shadow: 0px 12px 35px 5px rgba(0,0,0,0.10);
+        -webkit-box-shadow: 0px 12px 35px 5px rgba(0,0,0,0.05); 
+        box-shadow: 0px 12px 35px 5px rgba(0,0,0,0.05);
         width: calc((100% / 12)*10);
         text-align: left;
         border-collapse: collapse;
@@ -58,9 +58,7 @@
             tr{
                 transition: all 100ms linear;
                 cursor: pointer;
-                &:hover{
-                    background-color: $mainColorLight;
-                }
+                background-color: white;
     
                 td{
                     padding: 15px 20px;
@@ -82,7 +80,7 @@
                 }
             }
             .selectedRow{
-                background-color: $mainColorLight;
+                //background-color: $mainColorLight;
             }
         }
     }

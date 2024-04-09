@@ -3,6 +3,7 @@ import '../../style/StyleAdmin.scss';
 import { useSelector } from 'react-redux';
 import { formatterDate } from '../../js/helpers';
 import AdminForm from './AdminForm';
+import { handleDeleteEvent } from './helper';
 
 const Admin = () => {
 
@@ -24,6 +25,10 @@ const Admin = () => {
     setShowForm(!showForm)
   }
 
+  const toggleConfirmDelete = (id) =>{
+    handleDeleteEvent(id)
+  }
+
   return (
     <div className='admin'>
       {showForm && <AdminForm selectedEvent={selectedEvent} type={typeForm} closeForm={toggleForm} />}
@@ -39,6 +44,7 @@ const Admin = () => {
                   <th>Inscriptions</th>
                   <th>File d'attente</th>
                   <th>&nbsp;</th>
+                  <th>&nbsp;</th>
               </tr>
           </thead>
           <tbody>
@@ -49,6 +55,7 @@ const Admin = () => {
                     <td>{item.reservations}/{item.places}</td>
                     <td>{item.reservations}</td>
                     <td><button onClick={() => toggleForm('update')}>Modifier</button></td>
+                    <td><button onClick={() => toggleConfirmDelete(item.id)}>Supprimer</button></td>
                 </tr>
               )) :
                 <span className="loader"></span>
