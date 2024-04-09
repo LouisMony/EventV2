@@ -29,13 +29,11 @@ function Home() {
     if (filter === 'Reservations') {
       sortedEventsCopy.sort((a, b) => a.reservations - b.reservations);
     }
-    console.log(sortedEventsCopy);
 
     setSortedEvents(sortedEventsCopy);
   }
 
   const HandleSearch = (value) =>{
-    console.log(value);
     const filteredEvents = eventsSelector.filter(item =>
       item.name.toLowerCase().includes(value.toLowerCase())
     );
@@ -44,6 +42,7 @@ function Home() {
 
   useEffect(() =>{
     if(eventsSelector)setSortedEvents(eventsSelector)
+    console.log(eventsSelector);
   },[eventsSelector])
 
   return (
@@ -65,6 +64,8 @@ function Home() {
         )) :
           <span className="loader"></span>
         }
+
+        {(sortedEvents && sortedEvents.length === 0) && <span className="noContent"> Aucun évènement n'est disponible pour le moment.</span>}
       </ul>
     </motion.div>
   );

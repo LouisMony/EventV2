@@ -1,4 +1,5 @@
 import { supabase } from "../supabase/client";
+import {toast, Bounce } from 'react-toastify';
 
 export async function getAllEvents() {
     try {
@@ -210,5 +211,19 @@ export async function updatedEventAdmin(dataForm){
     )
     .eq('id', dataForm.id)
     .select()    
+}
+
+export function successToast(message){
+    toast.success(message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+    });
 }
           

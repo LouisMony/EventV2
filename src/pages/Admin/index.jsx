@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import '../../style/StyleAdmin.scss';
 import { useSelector } from 'react-redux';
-import { formatterDate } from '../../js/helpers';
+import { formatterDate, successToast } from '../../js/helpers';
 import AdminForm from './AdminForm';
 import { handleDeleteEvent } from './helper';
+import { ToastContainer} from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import AdminConfirmDelete from './AdminConfirmDelete';
 
 const Admin = () => {
 
@@ -12,7 +15,9 @@ const Admin = () => {
 
   const [eventInscriptions, setEventInscriptions] = useState(null)
   const [selectedEvent, setSelectedEvent] = useState(null)
+  const [selectedEventToDeleteId, setSelectedEventToDeleteId] = useState(null)
   const [showForm, setShowForm] = useState(false)
+  const [showAdminConfirmDelete, setShowAdminConfirmDelete] = useState(false)
   const [typeForm, setTypeForm] = useState('add')
 
   const handleSelectEvent = (id) =>{
@@ -26,11 +31,35 @@ const Admin = () => {
   }
 
   const toggleConfirmDelete = (id) =>{
-    handleDeleteEvent(id)
+    setSelectedEventToDeleteId(id)
+    setShowAdminConfirmDelete(!showAdminConfirmDelete)
+  }
+
+  const confirmDelete = async () =>{
+    const isDeleted = await handleDeleteEvent(selectedEventToDeleteId)
+    if(isDeleted){
+      successToast('Évènement supprimé avec succès !')
+      setShowAdminConfirmDelete(!showAdminConfirmDelete)
+    }
+  }
+
+  const copyLinkEvent = (id) => {
+    const link = "http://localhost:3000/event/" + id;
+    navigator.clipboard.writeText(link)
+      .then(() => {
+          console.log('Lien copié avec succès !');
+          successToast('Lien copié avec succès !')
+          
+      })
+      .catch((err) => {
+          console.error('Une erreur s\'est produite lors de la copie du lien : ', err);
+      });
   }
 
   return (
     <div className='admin'>
+      <ToastContainer />
+      {showAdminConfirmDelete && <AdminConfirmDelete confirmFunction={confirmDelete} closeFunction={toggleConfirmDelete}/>}
       {showForm && <AdminForm selectedEvent={selectedEvent} type={typeForm} closeForm={toggleForm} />}
 
       <button className='admin_add' onClick={() => toggleForm('add')}>Ajouter un évènement</button>
@@ -43,8 +72,7 @@ const Admin = () => {
                   <th>Date</th>
                   <th>Inscriptions</th>
                   <th>File d'attente</th>
-                  <th>&nbsp;</th>
-                  <th>&nbsp;</th>
+                  <th>Action</th>
               </tr>
           </thead>
           <tbody>
@@ -54,8 +82,11 @@ const Admin = () => {
                     <td>{formatterDate(item.date)}</td>
                     <td>{item.reservations}/{item.places}</td>
                     <td>{item.reservations}</td>
-                    <td><button onClick={() => toggleForm('update')}>Modifier</button></td>
-                    <td><button onClick={() => toggleConfirmDelete(item.id)}>Supprimer</button></td>
+                    <td className='tdAction'>
+                      <button onClick={() => toggleForm('update')}>Modifier</button>
+                      <button onClick={() => toggleConfirmDelete(item.id)}>Supprimer</button>
+                      <button onClick={() => copyLinkEvent(item.id)}>Copier le lien</button>
+                    </td>
                 </tr>
               )) :
                 <span className="loader"></span>
