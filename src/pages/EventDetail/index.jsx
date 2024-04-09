@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAuth } from '../../context/AuthProvider';
-import { subscribeEvent, unsubscribeEvent } from '../../js/helpers';
+import { subscribeEvent, unsubscribeEvent, successToast } from '../../js/helpers';
 import { Link, useNavigate } from 'react-router-dom';
 //STYLE
 import '../../style/StyleEventDetails.scss';
+import "react-toastify/dist/ReactToastify.css";
 import { motion } from 'framer-motion';
 import { fadeOpacity, anim } from '../../js/animation';
 
@@ -14,6 +15,7 @@ import Info from './Info';
 import ModalConfirm from './ModalConfirm';
 import ModalDelete from './ModalDelete';
 import GoBack from '../../components/GoBack/GoBack';
+import { ToastContainer} from 'react-toastify';
 
 //IMG
 import iconArrow from '../../assets/arrow_left.svg'
@@ -51,6 +53,7 @@ const EventDetail = () => {
     const data = await subscribeEvent(user.id, user.email, eventInfo)
     if(data.data[0].id){
       toggleModal()
+      successToast("Inscription enregistrée !")
     }
   }
 
@@ -59,6 +62,7 @@ const EventDetail = () => {
     const data = await unsubscribeEvent(inscriptionInfo, eventInfo)
     if(data){
       toggleModalDelete()
+      successToast("Désinscription enregistrée !")
     }
   }
 
@@ -94,6 +98,7 @@ const EventDetail = () => {
     {
       eventInfo ?
         <motion.div {...anim(fadeOpacity)} className='eventDetail'>
+          <ToastContainer />
           {showModalDelete ? <ModalDelete confirmFunction={handleUnsubscribe} closeFunction={toggleModalDelete}/> : null }
           {showModal ? <ModalConfirm confirmFunction={handleSubscribe} closeFunction={toggleModal}/> : null }
           <div className='eventDetail__banner' style={{ backgroundImage: `url(${eventInfo.image_link})` }}>
