@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from '../../supabase/client';
+import { ToastContainer} from 'react-toastify';
+import { successToast } from '../../js/helpers';
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
@@ -26,6 +28,7 @@ const ResetPassword = () => {
             if(data){
                 alert('success')
                 console.log(data);
+                successToast("Mot de passe réinitialisé")
             }
             if(error){
                 alert('error')
@@ -39,41 +42,42 @@ const ResetPassword = () => {
   };
 
   return (
-    <div>
-      <h2>Reset Password</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Confirm Password:
-          <input
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <button type="submit">Reset Password</button>
-      </form>
+    <div className='register'>
+        <ToastContainer />
+        <h2>Réinitialisez votre motre de passe</h2>
+        <form onSubmit={handleSubmit}>
+            <label>
+                <span>Email</span>
+                <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                />
+            </label>
+            <label>
+                <span>Mot de passe</span>
+                <input
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                />
+            </label>
+            <label>
+                <span>Confirmer le mot de passe</span>
+                <input
+                    type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    required
+                />
+            </label>
+            <button className='mainButton' type="submit">Valider</button>
+        </form>
     </div>
   );
 };
