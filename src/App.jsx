@@ -13,6 +13,8 @@ import Navbar from './components/Navbar/Navbar';
 import Rgpd from './pages/Settings/Rgpd';
 import Admin from './pages/Admin';
 import UpdateProfile from './pages/Settings/UpdateProfile';
+import ForgotPassword from './pages/ResetPassword/ForgotPassword';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
 
 //STYLE 
 import './index.scss';
@@ -104,11 +106,14 @@ function App() {
               {roleUser.role === "admin_user" ? <Route path='/fdr-admin' element={<Admin/>} /> : null}
               <Route path='/utilisation-des-donnees' element={<Rgpd/>} />
               <Route path='/modifier-mes-informations' element={<UpdateProfile/>} />
+              <Route path='/register/forget-password' element={<ForgotPassword/>} />
+              <Route path='/register/reset-password' element={<ResetPassword/>} />
             </Routes> 
           : 
             <Routes location={location} key={location.pathname}>
               <Route path='/register/creer-un-compte' element={<SignUp/>} />
               <Route path='/register/me-connecter' element={<SignIn/>} />
+              <Route path='/register/forget-password' element={<ForgotPassword/>} />
             </Routes> 
         }
         </AnimatePresence>
