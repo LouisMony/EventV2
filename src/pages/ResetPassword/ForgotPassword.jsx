@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { supabase } from '../../supabase/client';
 import { ToastContainer} from 'react-toastify';
 import { successToast } from '../../js/helpers';
+import { Link } from 'react-router-dom';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -28,6 +29,7 @@ const ForgotPassword = () => {
     <div className='register'>
         <ToastContainer />
         <h2>Mot de passe oublié</h2>
+        <p>Mot de passe oublié ? Indiquez ci-dessous votre adresse email pour recevoir un lien de réinitalisation de mot de passe .</p>
         <form onSubmit={handleSubmit}>
             <label>
             <span>Email</span>
@@ -39,6 +41,7 @@ const ForgotPassword = () => {
             />
             </label>
             <button className='mainButton' type="submit">Réinitialiser</button>
+            <Link to={'/register/me-connecter'}>J'ai déja un compte.</Link>
         </form>
     </div>
   );

@@ -3,6 +3,11 @@
 .register{
     height: 100vh;
     padding: calc($baseUnit/2);
+
+    p{
+        font-size: 12px;
+        margin: calc($baseUnit/2) 0;
+    }
     
     h2{
         font-weight: 600;

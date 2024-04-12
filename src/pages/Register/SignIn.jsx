@@ -69,7 +69,8 @@ const SignIn = () => {
         <button disabled={isLoading} className='mainButton' type="submit">{buttonContent}</button>
       </form>
       {errorMessage && <p style={{ color: 'red', fontSize: "12px", marginTop: "12px" }}>{errorMessage}</p>}
-      <Link to={'/register/creer-un-compte'}>Je n'ai pas encore de compte.</Link>
+      <Link to={'/register/creer-un-compte'}>Je n'ai pas encore de compte.</Link><br/>
+      <Link to={'/register/forget-password'}>Mot de passe oublié ?</Link>
     </div>
   );
 };

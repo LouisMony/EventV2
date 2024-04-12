@@ -22,7 +22,6 @@ const Navbar = () => {
   async function getUserRole(userInfo){
     if(userInfo && profilsSelector){
       const selectedUser = profilsSelector.find((user) => user.id === userInfo.id);
-      console.log(selectedUser);
       setRoleUser(selectedUser)
     }
   }
