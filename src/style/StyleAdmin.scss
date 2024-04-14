@@ -90,7 +90,7 @@
                 transition: all 100ms linear;
                 cursor: pointer;
                 background-color: white;
-    
+                
                 td{
                     padding: 15px 20px;
                     
@@ -116,7 +116,11 @@
                     width: 400px;
                     justify-content: space-between;
                 }
+                &:nth-child(even) {
+                    background: rgb(248, 248, 248);
+                }
             }
+            
             .selectedRow{
                 //background-color: $mainColorLight;
             }

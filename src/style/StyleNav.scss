@@ -10,6 +10,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 $baseUnit;
+    background-color: $mainBg;
 
     &__link{
         display: flex;

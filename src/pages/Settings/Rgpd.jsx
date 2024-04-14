@@ -26,7 +26,7 @@ const Rgpd = () => {
         Pour exercer ces droits ou pour toute question sur le traitement de vos données dans ce dispositif, vous pouvez contacter (le cas échéant, notre délégué à la protection des données ou le service chargé de l’exercice de ces droits) : <strong>contact@lesfousduroy.fr.</strong> <br/><br/>
 
         Si vous estimez, après nous avoir contactés, que vos droits « Informatique et Libertés » ne
-        sont pas respectés, vous pouvez adresser une réclamation à la CNIL.</p>
+        sont pas respectés, vous pouvez adresser une réclamation à la CNIL.</p><br/><br/><br/><br/>
     </motion.div>
   )
 }
