@@ -18,9 +18,9 @@ const Account = () => {
 
   useEffect(() =>{
     const userID = user.user.id
-    const userInscriptions = inscriptionSelector.filter(inscription => inscription.idUser === userID);
-    const userEvents = eventsSelector.filter(event => {
-      return userInscriptions.some(inscription => inscription.idEvent === event.id);
+    const userInscriptions = inscriptionSelector?.filter(inscription => inscription.idUser === userID);
+    const userEvents = eventsSelector?.filter(event => {
+      return userInscriptions?.some(inscription => inscription.idEvent === event.id);
     });
     setSubmittedEventsEvents(userEvents)
     

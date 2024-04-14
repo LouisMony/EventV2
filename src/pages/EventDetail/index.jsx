@@ -102,7 +102,7 @@ const EventDetail = () => {
           {showModalDelete ? <ModalDelete confirmFunction={handleUnsubscribe} closeFunction={toggleModalDelete}/> : null }
           {showModal ? <ModalConfirm confirmFunction={handleSubscribe} closeFunction={toggleModal}/> : null }
           <div className='eventDetail__banner' style={{ backgroundImage: `url(${eventInfo.image_link})` }}>
-            <GoBack link="/evenements"/>
+            <GoBack link="/"/>
           </div>
           <div className='eventDetail__content'>
             <div className='eventDetail__content__title'>

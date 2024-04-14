@@ -36,7 +36,7 @@ function App() {
   const location = useLocation();
   const dispatch = useDispatch()
   const profilsSelector = useSelector(state => state.profils.data)
-  const shouldDisplayNavbar = location.pathname === '/utilisation-des-donnees' || location.pathname === '/mon-compte' || location.pathname === '/settings' || location.pathname === '/evenements' || location.pathname === '/fdr-admin';
+  const shouldDisplayNavbar = location.pathname === '/utilisation-des-donnees' || location.pathname === '/mon-compte' || location.pathname === '/settings' || location.pathname === '/' || location.pathname === '/fdr-admin';
   const [roleUser, setRoleUser] = useState('basic_user')
   const [desiredRoute, setDesiredRoute] = useState(null)
   
@@ -82,20 +82,17 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      console.log('A');
-      if (location.pathname === '/' || location.pathname === '/register/me-connecter' || location.pathname === '/register/creer-un-compte') {
+      if (location.pathname === '/register/me-connecter' || location.pathname === '/register/creer-un-compte') {
         if(desiredRoute){
           navigate(desiredRoute)
         }
         else{
-          navigate('/evenements')
+          navigate('/')
         }
       }
     }
     else{
-      console.log('B');
       if (location.pathname !== '/register/me-connecter' && location.pathname !== '/register/creer-un-compte' && location.pathname !== '/register/forget-password') {
-        console.log(location.pathname);
         setDesiredRoute(location.pathname)
         navigate('/register/me-connecter')
       }      
@@ -117,7 +114,7 @@ function App() {
         {
           user ?
             <Routes location={location} key={location.pathname}>
-              <Route index path='/evenements' element={<Home/>} />
+              <Route index path='/' element={<Home/>} />
               <Route path='/mon-compte' element={<Account/>} />
               <Route path='/event/:id' element={<EventDetail/>} />
               <Route path='/settings' element={<Settings/>} />
