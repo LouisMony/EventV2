@@ -7,11 +7,18 @@
         font-size: 18px;
         font-weight: 600;
         margin: 12px 0;
+        @media only screen and (min-width: $maxLaptop) {
+            font-size: 20px;
+        }
     }
 
     p{
         font-size: 12px;
         margin-bottom: 12px;
+
+        @media only screen and (min-width: $maxLaptop) {
+            font-size: 14px;
+        }
     }
     &__events{
         height: calc(100% - $navHeight - 50px);
@@ -25,6 +32,15 @@
 
             a{
                 width: 100%;
+            }
+        }
+        @media only screen and (min-width: $maxLaptop) {
+            height: fit-content;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px; 
+            li{
+                height: fit-content;
             }
         }
     }

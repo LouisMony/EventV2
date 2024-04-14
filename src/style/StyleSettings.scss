@@ -9,6 +9,9 @@
         font-weight: 600;
         margin: 0 0 12px 0;
         color: $titleColor;
+        @media only screen and (min-width: $maxLaptop) {
+            font-size: 20px;
+        }
     }
 
     p{
@@ -17,6 +20,9 @@
         padding: 15px;
         font-size: 12px;
         margin-bottom: 12px;
+        @media only screen and (min-width: $maxLaptop) {
+            font-size: 14px;
+        }
     }
 
     &__list{

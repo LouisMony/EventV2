@@ -67,6 +67,16 @@
                 width: 100%;
             }
         }
+
+        @media only screen and (min-width: $maxLaptop) {
+            height: fit-content;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px; 
+            li{
+                height: fit-content;
+            }
+        }
     }
 
     
