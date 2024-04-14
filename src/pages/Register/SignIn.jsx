@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../../style/StyleRegister.scss';
 import { useAuth } from '../../context/AuthProvider';
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const { login } = useAuth();
 
   const [formData, setFormData] = useState({
@@ -28,13 +29,7 @@ const SignIn = () => {
     setButtonContent('Chargement ...');
 
     const data = await login(formData.email, formData.password);
-    if(data){
-      console.log(data);
-    }
-    // if(error){
-    //   console.log(error);
-    //   setErrorMessage("Email or Password Incorrect");
-    // }
+    console.log(data);
 
     setIsLoading(false);
     setButtonContent('Me connecter');

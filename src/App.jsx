@@ -38,6 +38,7 @@ function App() {
   const profilsSelector = useSelector(state => state.profils.data)
   const shouldDisplayNavbar = location.pathname === '/utilisation-des-donnees' || location.pathname === '/mon-compte' || location.pathname === '/settings' || location.pathname === '/evenements' || location.pathname === '/fdr-admin';
   const [roleUser, setRoleUser] = useState('basic_user')
+  const [desiredRoute, setDesiredRoute] = useState('/evenements')
   
   async function globalFetch() {
     try {
@@ -82,15 +83,20 @@ function App() {
   useEffect(() => {
     if (user) {
       if (location.pathname === '/' || location.pathname === '/register/me-connecter' || location.pathname === '/register/creer-un-compte') {
-        //navigate('/evenements');
+        navigate(desiredRoute);
       }
-    } else {
-      if (location.pathname !== '/register/me-connecter' || location.pathname === '/register/creer-un-compte') {
-        //navigate('/register/me-connecter');
+    }
+    else{
+      if (location.pathname !== '/register/me-connecter' && location.pathname !== '/register/creer-un-compte' && location.pathname !== '/register/forget-password') {
+        setDesiredRoute(location.pathname)
       }
+      navigate('/register/me-connecter')
     }
   }, [user, location]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <>
@@ -99,7 +105,7 @@ function App() {
         {
           user ?
             <Routes location={location} key={location.pathname}>
-              <Route path='/evenements' element={<Home/>} />
+              <Route index path='/evenements' element={<Home/>} />
               <Route path='/mon-compte' element={<Account/>} />
               <Route path='/event/:id' element={<EventDetail/>} />
               <Route path='/settings' element={<Settings/>} />

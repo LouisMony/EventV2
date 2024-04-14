@@ -46,7 +46,11 @@ const SignUp = () => {
 
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage("Les mots de passe ne correspondent pas.");
-    } else {      
+    } 
+    if (formData.password.length < 6) {
+      setErrorMessage("Le mot de passe doit contenir au moins 6 caractères");
+    } 
+    else {      
       try {
         setErrorMessage("");
         const { data, error } = await register(
@@ -60,11 +64,12 @@ const SignUp = () => {
         }
         if(error){
           setErrorMessage("Erreur lors de la création du compte.");
+          console.log(typeof error);
         }
       } catch (error) {
         setErrorMessage("Erreur lors de la création du compte.");
+        console.log(typeof error);
       }
-      setErrorMessage('');
     }
     setIsLoading(false);
     setButtonContent('Suivant');

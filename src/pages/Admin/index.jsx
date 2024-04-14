@@ -81,7 +81,7 @@ const Admin = () => {
                     <td>{item.name}</td>
                     <td>{formatterDate(item.date)}</td>
                     <td>{item.reservations}/{item.places}</td>
-                    <td>{item.reservations}</td>
+                    <td>{item.waiting}</td>
                     <td className='tdAction'>
                       <button onClick={() => toggleForm('update')}>Modifier</button>
                       <button onClick={() => toggleConfirmDelete(item.id)}>Supprimer</button>
