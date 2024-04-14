@@ -38,7 +38,7 @@ function App() {
   const profilsSelector = useSelector(state => state.profils.data)
   const shouldDisplayNavbar = location.pathname === '/utilisation-des-donnees' || location.pathname === '/mon-compte' || location.pathname === '/settings' || location.pathname === '/evenements' || location.pathname === '/fdr-admin';
   const [roleUser, setRoleUser] = useState('basic_user')
-  const [desiredRoute, setDesiredRoute] = useState('/evenements')
+  const [desiredRoute, setDesiredRoute] = useState(null)
   
   async function globalFetch() {
     try {
@@ -82,17 +82,29 @@ function App() {
 
   useEffect(() => {
     if (user) {
+      console.log('A');
       if (location.pathname === '/' || location.pathname === '/register/me-connecter' || location.pathname === '/register/creer-un-compte') {
-        navigate(desiredRoute);
+        if(desiredRoute){
+          navigate(desiredRoute)
+        }
+        else{
+          navigate('/evenements')
+        }
       }
     }
     else{
+      console.log('B');
       if (location.pathname !== '/register/me-connecter' && location.pathname !== '/register/creer-un-compte' && location.pathname !== '/register/forget-password') {
+        console.log(location.pathname);
         setDesiredRoute(location.pathname)
-      }
-      navigate('/register/me-connecter')
+        navigate('/register/me-connecter')
+      }      
     }
   }, [user, location]);
+
+  useEffect(() => {
+    console.log('desired', desiredRoute);;
+  }, [desiredRoute]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
