@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAuth } from '../../context/AuthProvider';
-import { subscribeEvent, unsubscribeEvent, successToast } from '../../js/helpers';
+import { subscribeEvent, unsubscribeEvent, successToast, errorToast } from '../../js/helpers';
 import { Link, useNavigate } from 'react-router-dom';
 //STYLE
 import '../../style/StyleEventDetails.scss';
@@ -32,6 +32,7 @@ const EventDetail = () => {
   const [buttonIsDisabled, setButtonIsDisabled] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [showModalDelete, setShowModalDelete] = useState(false)
+  const [textConfirmState, setTextConfirmState] = useState("Confirmer")
 
   const toggleModal = () =>{
     setShowModal(!showModal)
@@ -48,21 +49,36 @@ const EventDetail = () => {
     history.goBack();
   };
 
-  const handleSubscribe = async () =>{
-
-    const data = await subscribeEvent(user.id, user.email, eventInfo)
-    if(data.data[0].id){
-      toggleModal()
-      successToast("Inscription enregistrée !")
+  const handleSubscribe = async () => {
+    setTextConfirmState("Patientez ...");
+    
+    try {
+        const data = await subscribeEvent(user.id, user.email, eventInfo);
+        if (data.data[0].id) {
+            toggleModal();
+            successToast("Inscription enregistrée !");
+            setTextConfirmState("Confirmez");
+        }
+    } catch (error) {
+        setTextConfirmState("Confirmez");
+        toggleModal();
+        errorToast('Une erreur est survenue, merci de réassayez ultèrieurement.')
+        console.error("Une erreur est survenue lors de la souscription :", error);
     }
-  }
+};
 
   const handleUnsubscribe = async () =>{
-
-    const data = await unsubscribeEvent(inscriptionInfo, eventInfo)
-    if(data){
-      toggleModalDelete()
-      successToast("Désinscription enregistrée !")
+    setTextConfirmState("Patientez ...");
+    try {
+        const data = await unsubscribeEvent(inscriptionInfo, eventInfo)
+        if(data){
+          toggleModalDelete()
+          successToast("Désinscription enregistrée !")
+        }
+    } catch (error) {
+        setTextConfirmState("Confirmez");
+        toggleModal();
+        errorToast('Une erreur est survenue, merci de réassayez ultèrieurement.')
     }
   }
 
@@ -99,8 +115,8 @@ const EventDetail = () => {
       eventInfo ?
         <motion.div {...anim(fadeOpacity)} className='eventDetail'>
           <ToastContainer />
-          {showModalDelete ? <ModalDelete confirmFunction={handleUnsubscribe} closeFunction={toggleModalDelete}/> : null }
-          {showModal ? <ModalConfirm confirmFunction={handleSubscribe} closeFunction={toggleModal}/> : null }
+          {showModalDelete ? <ModalDelete confirmFunction={handleUnsubscribe} closeFunction={toggleModalDelete} textContent={textConfirmState}/> : null }
+          {showModal ? <ModalConfirm confirmFunction={handleSubscribe} closeFunction={toggleModal} textContent={textConfirmState}/> : null }
           <div className='eventDetail__banner' style={{ backgroundImage: `url(${eventInfo.image_link})` }}>
             <GoBack link="/"/>
           </div>

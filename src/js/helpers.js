@@ -66,10 +66,9 @@ export function formatterDate(inputDate) {
     return dateFormateeString;
 }
 
-export async function subscribeEvent(userId, userEmail, eventData){
-    
+export async function subscribeEvent(userId, userEmail, eventData) {
     let dataSubscribe = {
-        idUser : userId,
+        idUser: userId,
         mailUser: userEmail,
         idEvent: eventData.id,
         isOnWaitingList: (eventData.isFull || (eventData.places === eventData.reservations)) ? true : false
@@ -81,18 +80,19 @@ export async function subscribeEvent(userId, userEmail, eventData){
 
         if (error) {
             console.error(error);
-        }
-        else {
+            throw new Error('Une erreur est survenue lors de l\'insertion des données.');
+        } else {
             const updatedEvent = await updateEvent('AddReservation', eventData)
-            if(updatedEvent){
-                return {data, updateEvent}
+            if (updatedEvent) {
+                return { data, updateEvent };
             }
-            
-        } 
+        }
     } catch (error) {
-        console.error('An error occurred while posting data:', error);
+        console.error('Une erreur est survenue lors de la publication des données :', error);
+        throw new Error('Une erreur est survenue lors de la publication des données.');
     }
 }
+
 
 export async function unsubscribeEvent(inscriptionData, eventData){
     
@@ -101,6 +101,7 @@ export async function unsubscribeEvent(inscriptionData, eventData){
 
         if (error) {
             console.error(error);
+            throw new Error('Une erreur est survenue');
         }
         else {
             const updatedEvent = await updateEvent('DeleteReservation', eventData, inscriptionData)
@@ -131,12 +132,14 @@ async function updateEvent(action, eventData, inscriptionData){
         
             if (error) {
                 console.error(error);
+                throw new Error('Une erreur est survenue lors de la publication des données.');
             }
             else {
                 return data
             } 
         } catch (error) {
             console.error('An error occurred while posting data:', error);
+            throw new Error('Une erreur est survenue lors de la publication des données.');
         }
     }
     else if (action === "DeleteReservation"){
@@ -160,12 +163,14 @@ async function updateEvent(action, eventData, inscriptionData){
         
             if (error) {
                 console.error(error);
+                throw new Error('Une erreur est survenue');
             }
             else {
                 return data
             } 
         } catch (error) {
             console.error('An error occurred while posting data:', error);
+            throw new Error('Une erreur est survenue lors de la publication des données.');
         }
     }
 }
@@ -215,6 +220,20 @@ export async function updatedEventAdmin(dataForm){
 
 export function successToast(message){
     toast.success(message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+    });
+}
+
+export function errorToast(message){
+    toast.error(message, {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
