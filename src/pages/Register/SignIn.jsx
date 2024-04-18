@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../../style/StyleRegister.scss';
 import { useAuth } from '../../context/AuthProvider';
+import { ToastContainer } from 'react-toastify';
+import { errorToast } from '../../js/helpers';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -27,16 +29,22 @@ const SignIn = () => {
     e.preventDefault();
     setIsLoading(true);
     setButtonContent('Chargement ...');
-
+  
     const data = await login(formData.email, formData.password);
     console.log(data);
-
+  
     setIsLoading(false);
     setButtonContent('Me connecter');
+  
+    if (data === null || data === undefined) {
+      console.error('Identifiants invalides');
+      setErrorMessage('Identifiants invalides. Veuillez vérifier votre email et votre mot de passe.');
+    }
   };
 
   return (
     <div className='register'>
+      <ToastContainer />
       <h2>Me connecter</h2>
       <form onSubmit={handleSubmit}>
         <label>
